@@ -14,9 +14,9 @@
             <transition>
               <input type="text" placeholder="Search.." name="search" class="inputText">
             </transition>
-            <a href="#" class="icon">
+            <router-link to="/login" class="icon">
               <i class="far fa-user fa-lg"></i>
-            </a>
+            </router-link>
             &ensp;
             <a href="#" class="icon">
               <i class="fas fa-shopping-cart fa-lg"></i>
@@ -31,7 +31,7 @@
           <a href="#" target="_self">สินค้า</a>
         </li>
         <li>
-          <a href="#" target="_self">อะไรซักอย่าง</a>
+          <a href="#" target="_self">มาใหม่</a>
         </li>
         <li>
           <a href="#" target="_self">โปรโมชั่น</a>
@@ -72,6 +72,7 @@ export default {
   display: flex;
 }
 .navbar {
+    padding-top: 1em;
   margin: 0 auto;
   display: block;
 }

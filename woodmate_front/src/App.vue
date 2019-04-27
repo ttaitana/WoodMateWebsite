@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navbar/>
+    <navbar v-if="['login', 'register'].indexOf($route.name) < 0"/>
     <!-- <img src="./assets/logo.png"> -->
     <router-view/>
   </div>
@@ -8,10 +8,16 @@
 
 <script>
 import navbar from '@/components/navbar'
+import store from './vuex/store'
 
 export default {
   name: 'App',
-  components:{navbar}
+  components:{navbar},
+  store,
+  mounted(){
+      console.log(this.$route.name);
+      console.log(['login'].indexOf(this.$route.name))
+  }
 }
 </script>
 
@@ -22,7 +28,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 1em;
+  /* margin-top: 1em; */
 }
 navbar{
   margin-bottom: 1em;

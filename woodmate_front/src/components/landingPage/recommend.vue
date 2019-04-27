@@ -6,7 +6,7 @@
       <hr>
       <p>สวยอย่างคลาสสิกด้วยเฟอร์นิเจอร์ไม้จาก woodmate</p>
       <a href="#">
-          <button type="button" class="btn btn-outline-dark">
+          <button type="button" class="btn btn-outline-dark" id="mainbtn">
               ดูสินค้า
           </button>
       </a>
@@ -47,7 +47,11 @@ img {
     padding-top: 15vh;
   margin: 0 auto;
   position: relative;
-  height: 85vh;
+  height: 86vh;
   overflow: hidden;
+}
+#mainbtn{
+    width: 10em;
+    border-radius: 0;
 }
 </style>
