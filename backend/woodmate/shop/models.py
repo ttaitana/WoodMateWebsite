@@ -9,7 +9,7 @@ class Customer(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
 
 class ProductType(models.Model):
-    ptype_id = models.IntegerField()
+    ptype_id = models.IntegerField(primary_key=True)
     ptype_name = models.CharField(max_length=30)
 
 class Product(models.Model):
@@ -26,7 +26,7 @@ class Order(models.Model):
     status = models.CharField(max_length=30)
     date = models.DateField()
     total_price = models.IntegerField()
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
 
 class OrderList(models.Model):
     line_id = models.IntegerField(primary_key=True)
@@ -46,3 +46,18 @@ class DeliveryMan(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=10)
+
+class Cart(models.Model):
+    cart_id = models.IntegerField(primary_key=True)
+    cid = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    pid = models.ForeignKey(Product, on_delete=models.CASCADE)
+    unit = models.IntegerField()
+
+class Address(models.Model):
+    address_id = models.IntegerField(primary_key=True)
+    address_desc = models.CharField(max_length=500)
+    district = models.CharField(max_length=50)
+    area = models.CharField(max_length=50)
+    province = models.CharField(max_length=50)
+    postal_code = models.CharField(max_length=5)
+    cid = models.ForeignKey(Customer, on_delete=models.CASCADE)
