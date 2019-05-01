@@ -9,10 +9,12 @@ class CustomerForm(forms.Form):
     last_name = forms.CharField(max_length=50, required=True)
     phone_number = forms.CharField(max_length=10, required=True)
 
-class AddressModelForm(forms.ModelForm):
-    class Meta:
-        model = Address
-        exclude = ['cid', 'address_id']
+class AddressForm(forms.Form):
+    address_desc = forms.CharField(max_length=500, required=True, widget=forms.Textarea)
+    district = forms.CharField(max_length=50, required=True)
+    area = forms.CharField(max_length=50, required=True)
+    province = forms.CharField(max_length=50, required=True)
+    postal_code = forms.CharField(max_length=5, required=True)
 
 def validate_passlen(value):
     if len(value) < 8:

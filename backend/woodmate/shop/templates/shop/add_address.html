@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add new address</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <form method="POST" action="{% url 'add_address'%}">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            <p>{{ form.non_field_errors }}</p>
+            {% endif %}
+            <table>
+                <tr>
+                    <td><label id="{{ form.address_desc.id_for_label }}">{{ form.address_desc.label }}</label></td>
+                    <td>{{ form.address_desc }} {{ form.address_desc.errors }}</td>
+                </tr>
+                <tr>
+                    <td><label id="{{ form.district.id_for_label }}">{{ form.district.label }}</label></td>
+                    <td>{{ form.district }} {{ form.district.errors }}</td>
+                </tr>
+                <tr>
+                    <td><label id="{{ form.area.id_for_label }}">{{ form.area.label }}</label></td>
+                    <td>{{ form.area }} {{ form.area.errors }}</td>
+                </tr>
+                <tr>
+                        <td><label id="{{ form.province.id_for_label }}">{{ form.province.label }}</label></td>
+                        <td>{{ form.province }} {{ form.province.errors }}</td>
+                    </tr>
+                <tr>
+                    <td><label id="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label></td>
+                    <td>{{ form.postal_code }} {{ form.postal_code.errors }}</td>
+                </tr>
+            </table>
+            <input type="submit" value="Finish">
+        </form>
+    </body>
+</html>

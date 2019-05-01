@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Check Address</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <table border=1>
+            <tr>
+                <td>รายละเอียดที่อยู่</td>
+                <td>แขวง</td>
+                <td>เขต</td>
+                <td>จังหวัด</td>
+                <td>รหัสไปรสณีย์</td>
+            </tr>
+            {% for a in address %}
+            <tr>
+                <td>{{ a.address_desc }}</td>
+                <td>{{ a.district }}</td>
+                <td>{{ a.area }}</td>
+                <td>{{ a.province }}</td>
+                <td>{{ a.postal_code }}</td>
+                <td><a href="{% url 'edit_address' address_id=a.address_id %}">Edit</a></td>
+                <td><a href="{% url 'del_address' address_id=a.address_id %}">Del</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'add_address' %}">Add Address</a>
+        <br>
+        <a href="{% url 'index' %}">Back to Home Page</a>
+    </body>
+</html>
