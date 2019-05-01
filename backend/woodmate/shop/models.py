@@ -1,7 +1,7 @@
 from django.db import models
 
 class Customer(models.Model):
-    cid = models.IntegerField(primary_key=True)
+    cid = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
@@ -9,11 +9,14 @@ class Customer(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
 
 class ProductType(models.Model):
-    ptype_id = models.IntegerField(primary_key=True)
+    ptype_id = models.AutoField(primary_key=True)
     ptype_name = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.ptype_name
+
 class Product(models.Model):
-    product_id = models.IntegerField(primary_key=True)
+    product_id = models.AutoField(primary_key=True)
     product_type = models.ForeignKey(ProductType, on_delete=models.PROTECT)
     product_name = models.CharField(max_length=100)
     product_desc = models.CharField(max_length=150)
@@ -21,7 +24,7 @@ class Product(models.Model):
     stock = models.IntegerField()
 
 class Order(models.Model):
-    oid = models.IntegerField(primary_key=True)
+    oid = models.AutoField(primary_key=True)
     payment = models.CharField(max_length=50)
     status = models.CharField(max_length=30)
     date = models.DateField()
@@ -29,7 +32,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
 
 class OrderList(models.Model):
-    line_id = models.IntegerField(primary_key=True)
+    line_id = models.AutoField(primary_key=True)
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     unit = models.IntegerField()
     price = models.IntegerField()
@@ -37,27 +40,30 @@ class OrderList(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
 
 class Sales(models.Model):
-    sid = models.IntegerField(primary_key=True)
+    sid = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
 
 class DeliveryMan(models.Model):
-    dm_id = models.IntegerField(primary_key=True)
+    dm_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=10)
 
 class Cart(models.Model):
-    cart_id = models.IntegerField(primary_key=True)
+    cart_id = models.AutoField(primary_key=True)
     cid = models.ForeignKey(Customer, on_delete=models.CASCADE)
     pid = models.ForeignKey(Product, on_delete=models.CASCADE)
     unit = models.IntegerField()
 
 class Address(models.Model):
-    address_id = models.IntegerField(primary_key=True)
+    address_id = models.AutoField(primary_key=True)
     address_desc = models.CharField(max_length=500)
     district = models.CharField(max_length=50)
     area = models.CharField(max_length=50)
     province = models.CharField(max_length=50)
     postal_code = models.CharField(max_length=5)
     cid = models.ForeignKey(Customer, on_delete=models.CASCADE)
+
+class Feedback(models.Model):
+    text = models.CharField(max_length=500)

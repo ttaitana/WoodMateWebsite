@@ -136,3 +136,29 @@ def edit_address(request, address_id):
     context['form'] = form
     context['address'] = address
     return render(request, template_name='shop/edit_address.html', context=context)
+
+@login_required
+def feedback(request):
+    context = {}
+    if request.method == 'POST':
+        form = FeedbackModelForm(request.POST)
+        feedback = form.save()
+        return redirect('index')
+    else:
+        form = FeedbackModelForm()
+    context['form'] = form
+    return render(request, template_name='shop/feedback.html', context=context)
+
+def viewAllItem(request):
+    context = {}
+    items = Product.objects.all()
+    if request.method == "POST":
+        pass
+    context['item'] = items
+    return render(request, template_name='shop/view_items.html', context=context)
+
+def itemDetails(request, product_id):
+    context = {}
+    product = Product.objects.get(product_id=product_id)
+    context['item'] = product 
+    return render(request, template_name='shop/itemDetails.html', context=context)

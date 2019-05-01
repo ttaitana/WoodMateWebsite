@@ -2,7 +2,7 @@ from django import forms
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
-from shop.models import Customer, Address, Sales, DeliveryMan
+from shop.models import *
 
 class CustomerForm(forms.Form):
     first_name = forms.CharField(max_length=50, required=True)
@@ -32,3 +32,8 @@ class UserForm(forms.Form):
         confirmpass = cleaned_data.get('confirmpass')
         if password != confirmpass:
             raise ValidationError('รหัสผ่าน และ ยืนยันรหัสผ่าน ต้องเหมือนกัน')
+
+class FeedbackModelForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = '__all__'

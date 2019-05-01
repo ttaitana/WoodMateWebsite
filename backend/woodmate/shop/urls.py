@@ -10,5 +10,8 @@ urlpatterns = [
     path('add_address/', views.add_address, name='add_address'),
     path('del_address/<int:address_id>', views.del_address, name='del_address'),
     path('edit_address/<int:address_id>', views.edit_address, name='edit_address'),
+    path('feedback/', views.feedback, name='feedback'),
+    path('viewitems/', views.viewAllItem, name='viewitems'),
+    path('itemdetails/<int:product_id>', views.itemDetails, name='itemdetails'),
 
 ]

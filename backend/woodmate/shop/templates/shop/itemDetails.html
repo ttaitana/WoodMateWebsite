@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View product details</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <table border=1>
+            <tr>
+                <td>Name</td>
+                <td>Description</td>
+                <td>Price</td>
+                <td>In Stock</td>
+            </tr>
+            <tr>
+                <td>{{ item.product_name }}</td>
+                <td>{{ item.product_desc }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.stock }}</td>
+                <td><a href="">Add to cart</a></td>
+            </tr>
+        </table>
+        <a href="{% url 'viewitems' %}">Go back</a>
+    </body>
+</html>
