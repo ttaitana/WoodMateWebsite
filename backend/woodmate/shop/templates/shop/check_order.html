@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Check Order</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <table border=1>
+            <tr>
+                <td>Orders</td>
+                <td>Status</td>
+                <td>Date</td>
+            </tr>
+            {% for o in order %}
+            <tr>
+                <td><a href="{% url 'orderdetails' order_id=o.oid %}">Details</a></td>
+                <td>{{ o.status }}</td>
+                <td>{{ o.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'index' %}">Go back</a>
+    </body>
+</html>

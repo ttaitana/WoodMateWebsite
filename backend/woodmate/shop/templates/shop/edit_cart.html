@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit your cart</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <table border=1>
+            <tr>
+                <td>Product Name</td>
+                <td>Unit(s)</td>
+            </tr>
+            {% for c in cart %}
+            <tr>
+                <td>{{ c.pid }}</td>
+                <td>{{ c.unit }}</td>
+                <td><a href="{% url 'plusunit' cart_id=c.cart_id %}">+</a></td>
+                <td><a href="{% url 'minusunit' cart_id=c.cart_id %}">-</a></td>
+                <td><a href="{% url 'deletecart' cart_id=c.cart_id %}">DEL</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'makeorder' %}">Make Order</a>
+        <br>
+        <a href="{% url 'index' %}">Go back</a>
+    </body>
+</html>

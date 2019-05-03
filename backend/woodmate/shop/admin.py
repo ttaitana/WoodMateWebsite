@@ -26,3 +26,37 @@ class FeedbackAdmin(admin.ModelAdmin):
     search_fields = ['text']
 
 admin.site.register(Feedback, FeedbackAdmin)
+
+class SalesAdmin(admin.ModelAdmin):
+    list_display = ['sid', 'first_name', 'last_name']
+    list_per_page = 10
+    search_fields = ['first_name']
+
+class DeliveryManAdmin(admin.ModelAdmin):
+    list_display = ['dm_id', 'first_name', 'last_name']
+    list_per_page = 10
+    search_fields = ['first_name']
+
+admin.site.register(DeliveryMan, DeliveryManAdmin)
+
+admin.site.register(Sales, SalesAdmin)
+
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['cart_id', 'cid', 'pid', 'unit']
+    list_per_page = 10
+    list_filter = ['cid']
+
+admin.site.register(Cart, CartAdmin)
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['oid', 'payment', 'status', 'date', 'total_price']
+    list_per_page = 10
+    list_filter = ['status']
+
+admin.site.register(Order, OrderAdmin)
+
+class OrderListAdmin(admin.ModelAdmin):
+    list_display = ['line_id', 'order']
+    list_per_page = 10
+
+admin.site.register(OrderList, OrderListAdmin)

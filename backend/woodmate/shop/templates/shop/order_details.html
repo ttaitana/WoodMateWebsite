@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Order details</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <table border=1>
+            <tr>
+                <td>Product Name</td>
+                <td>Unit</td>
+                <td>Price Per Each</td>
+                <td>Total Price</td>
+            </tr>
+            {% for ol in orderlist %}
+            <tr>
+                <td>{{ ol.product }}</td>
+                <td>{{ ol.unit }}</td>
+                <td>{{ ol.price }}</td>
+                <td>{{ ol.total_price }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3">Total</td>
+                <td>{{ order.total_price }}</td>
+            </tr>
+        </table>
+        <a href="{% url 'checkorder' %}">Go back</a>
+    </body>
+</html>

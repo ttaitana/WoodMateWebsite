@@ -5,6 +5,11 @@
         <meta charset="UTF-8">
     </head>
     <body>
+        ประเภทสินค้า : 
+        <a href="{% url 'viewitems' type_id=0 %}">All</a>
+        {% for t in types %}
+        <a href="{% url 'viewitems' type_id=t.ptype_id %}">{{ t.ptype_name }}</a>
+        {% endfor %}
         <table border=1>
             <tr>
                 <td>Name</td>

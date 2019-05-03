@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Make an order</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <table border=1>
+            <tr>
+                <td>Product Name</td>
+                <td>Unit</td>
+                <td>Total Price</td>
+            </tr>
+            {% for c in cart %}
+            <tr>
+                <td>{{ c.pid }}</td>
+                <td>{{ c.unit }}</td>
+                <td>{{ c.price }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>Total</td>
+                <td></td>
+                <td>{{ totalprice }}</td>
+            </tr>
+        </table>
+        <form method="POST" action="{% url 'makeorder' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Confirm Order">
+        </form>
+        <a href="{% url 'index' %}">Go back</a>
+    </body>
+</html>

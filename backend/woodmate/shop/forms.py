@@ -37,3 +37,8 @@ class FeedbackModelForm(forms.ModelForm):
     class Meta:
         model = Feedback
         fields = '__all__'
+
+class MakeOrderForm(forms.Form):
+    payment = forms.CharField(max_length=50)
+    status = forms.CharField(max_length=30, widget=forms.HiddenInput)
+    date = forms.DateField(widget=forms.HiddenInput)

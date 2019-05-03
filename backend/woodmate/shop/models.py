@@ -8,6 +8,25 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=10)
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.first_name
+
+class Sales(models.Model):
+    sid = models.AutoField(primary_key=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.first_name
+
+class DeliveryMan(models.Model):
+    dm_id = models.AutoField(primary_key=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=10)
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+
 class ProductType(models.Model):
     ptype_id = models.AutoField(primary_key=True)
     ptype_name = models.CharField(max_length=30)
@@ -22,14 +41,20 @@ class Product(models.Model):
     product_desc = models.CharField(max_length=150)
     price = models.IntegerField()
     stock = models.IntegerField()
+    modifier = models.ForeignKey(Sales, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.product_name
 
 class Order(models.Model):
     oid = models.AutoField(primary_key=True)
     payment = models.CharField(max_length=50)
     status = models.CharField(max_length=30)
     date = models.DateField()
-    total_price = models.IntegerField()
+    total_price = models.IntegerField(null=True, blank=True)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    sales = models.ForeignKey(Sales, on_delete=models.PROTECT, null=True, blank=True)
+    deliveryman = models.ForeignKey(DeliveryMan, on_delete=models.PROTECT, null=True, blank=True)
 
 class OrderList(models.Model):
     line_id = models.AutoField(primary_key=True)
@@ -38,17 +63,6 @@ class OrderList(models.Model):
     price = models.IntegerField()
     total_price = models.IntegerField()
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-
-class Sales(models.Model):
-    sid = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-
-class DeliveryMan(models.Model):
-    dm_id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=10)
 
 class Cart(models.Model):
     cart_id = models.AutoField(primary_key=True)

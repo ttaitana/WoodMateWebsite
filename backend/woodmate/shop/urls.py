@@ -11,7 +11,16 @@ urlpatterns = [
     path('del_address/<int:address_id>', views.del_address, name='del_address'),
     path('edit_address/<int:address_id>', views.edit_address, name='edit_address'),
     path('feedback/', views.feedback, name='feedback'),
-    path('viewitems/', views.viewAllItem, name='viewitems'),
+    path('viewitems/<int:type_id>', views.viewAllItem, name='viewitems'),
     path('itemdetails/<int:product_id>', views.itemDetails, name='itemdetails'),
+    path('addToCart/<int:product_id>', views.addToCart, name='addtocart'),
+    path('editCart/', views.editCart, name='editcart'),
+    path('plusUnit/<int:cart_id>', views.plusUnit, name='plusunit'),
+    path('minusUnit/<int:cart_id>', views.minusUnit, name='minusunit'),
+    path('deleteCart/<int:cart_id>', views.deleteCart, name='deletecart'),
+    path('makeOrder/', views.makeOrder, name='makeorder'),
+    path('checkOrder/', views.checkOrder, name='checkorder'),
+    path('orderDetails/<int:order_id>', views.orderDetails, name='orderdetails'),
+
 
 ]

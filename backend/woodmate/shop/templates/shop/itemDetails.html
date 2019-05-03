@@ -17,9 +17,9 @@
                 <td>{{ item.product_desc }}</td>
                 <td>{{ item.price }}</td>
                 <td>{{ item.stock }}</td>
-                <td><a href="">Add to cart</a></td>
+                <td><a href="{% url 'addtocart' product_id=item.product_id%}">Add to cart</a></td>
             </tr>
         </table>
-        <a href="{% url 'viewitems' %}">Go back</a>
+        <a href="{% url 'viewitems' type_id=0 %}">Go back</a>
     </body>
 </html>

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from shop.forms import *
 from shop.models import *
+import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -149,12 +150,16 @@ def feedback(request):
     context['form'] = form
     return render(request, template_name='shop/feedback.html', context=context)
 
-def viewAllItem(request):
+def viewAllItem(request, type_id):
     context = {}
-    items = Product.objects.all()
-    if request.method == "POST":
-        pass
+    types = ProductType.objects.all()
+    if type_id != 0:
+        gettype = ProductType.objects.get(ptype_id=type_id)
+        items = Product.objects.filter(product_type=gettype)
+    else:
+        items = Product.objects.all()
     context['item'] = items
+    context['types'] = types
     return render(request, template_name='shop/view_items.html', context=context)
 
 def itemDetails(request, product_id):
@@ -162,3 +167,121 @@ def itemDetails(request, product_id):
     product = Product.objects.get(product_id=product_id)
     context['item'] = product 
     return render(request, template_name='shop/itemDetails.html', context=context)
+
+@login_required
+def addToCart(request, product_id):
+    product = Product.objects.get(product_id=product_id)
+    customer = Customer.objects.get(user=request.user)
+    try:
+        print(Cart.objects.get(pid=product, cid=customer))
+        cart = Cart.objects.get(pid=product, cid=customer)
+        unit = cart.unit
+        unit += 1
+        cart.unit = unit
+        cart.save()
+    except:
+        cart = Cart.objects.create(
+            cid = customer,
+            pid = product,
+            unit = 1
+        )
+    return redirect('viewitems', type_id=0)
+
+def editCart(request):
+    customer = Customer.objects.get(user=request.user)
+    cart = Cart.objects.filter(cid=customer)
+    context = {}
+    context['cart'] = cart
+    return render(request, template_name='shop/edit_cart.html', context=context)
+
+def plusUnit(request, cart_id):
+    cart = Cart.objects.get(cart_id=cart_id)
+    unit = cart.unit
+    unit += 1
+    cart.unit = unit
+    cart.save()
+    return redirect('editcart')
+
+def minusUnit(request, cart_id):
+    cart = Cart.objects.get(cart_id=cart_id)
+    unit = cart.unit
+    unit -= 1
+    cart.unit = unit
+    if unit == 0:
+        cart.delete()
+    else:
+        cart.save()
+    return redirect('editcart')
+
+def deleteCart(request, cart_id):
+    cart = Cart.objects.get(cart_id=cart_id)
+    cart.delete()
+    return redirect('editcart')
+
+def makeOrder(request):
+    context = {}
+    customer = Customer.objects.get(user = request.user)
+    cart = Cart.objects.filter(cid = customer)
+    if request.method == 'POST':
+        form = MakeOrderForm(request.POST)
+        if form.is_valid():
+            payment = request.POST.get('payment')
+            date = request.POST.get('date')
+            status = request.POST.get('status')
+            order = Order.objects.create(
+                payment=payment,
+                status=status,
+                date=date,
+                customer = customer
+            )
+            totalprice = 0
+            for c in cart:
+                product = c.pid
+                checkunit = product.stock - c.unit
+                if checkunit < 0:
+                    return redirect('editcart')
+                product.stock = checkunit
+                price = product.price * c.unit
+                totalprice += price
+                orderlist = OrderList.objects.create(
+                    product=product,
+                    unit=c.unit,
+                    price=product.price,
+                    total_price=price,
+                    order=order
+                )
+                product.save()
+                c.delete()
+            order.total_price = totalprice
+            order.save()
+
+            return redirect('index')
+    totalprice = 0
+    for c in cart:
+        product = c.pid
+        price = product.price * c.unit
+        totalprice += price
+        c.price = price
+    today = datetime.datetime.now().date()
+    form = MakeOrderForm(initial={'date': today, 'status': 'Waiting'})
+    context['form'] = form
+    context['cart'] = cart
+    context['totalprice'] = totalprice
+    return render(request, template_name='shop/make_order.html', context=context)
+
+@login_required
+def checkOrder(request):
+    context = {}
+    customer = Customer.objects.get(user = request.user)
+    order = Order.objects.filter(customer = customer)
+    context['order'] = order
+    return render(request, template_name='shop/check_order.html', context=context)
+
+@login_required
+def orderDetails(request, order_id):
+    context = {}
+    order = Order.objects.get(oid=order_id)
+    orderlist = OrderList.objects.filter(order=order)
+    context['orderlist'] = orderlist
+    context['order'] = order
+    return render(request, template_name='shop/order_details.html', context=context)
