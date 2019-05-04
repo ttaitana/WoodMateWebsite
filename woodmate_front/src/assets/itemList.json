@@ -1,0 +1,68 @@
+{
+    "product": [
+        {
+            "product_id" : 1,
+            "product_name": "โซฟาเบด 3 ที่นั่ง",
+            "product_desc": "มีพ็อกเก็ตสปริงรองรับสรีระได้ดีเยี่ยม ชั้นบนทำด้วยใยบอล ให้ความนุ่มสบายเป็นพิเศษเมื่อนั่ง มาพร้อมพนักพิงสูงและหมอนรองคอ เพื่อความสบายมากยิ่งขึ้น",
+            "price": 60580,
+            "stock": "5",
+            "product_type_id": 1,
+            "modifier_id": "",
+            "image" : "https://www.ikea.com/th/th/images/products/lidhult-lidhulth-sofa-bed-thi-nang-bec__0620132_PE689443_S4.JPG"
+        },
+        {
+            "product_id" : 2,
+            "product_name": "ตู้บานเดี่ยว, ขาว",
+            "product_desc": "พื้นที่เล็กหรือบริเวณมุมห้อง ก็เปลี่ยนให้เป็นที่เก็บของได้ ด้วย ชั้นวางซีรีส์ DYNAN/ดือนัน เพราะสามารถปรับเปลี่ยนให้เข้ากับพื้นที่ที่มีได้ ไม่ว่าจะเพิ่มชั้นวางด้านบนหรือตู้ด้านข้าง",
+            "price": 1190,
+            "stock": "10",
+            "product_type_id": 2,
+            "modifier_id": "",
+            "image" : "https://www.ikea.com/th/th/images/products/dynan-dux-nan-tu-ban-deiyw-khaw__0469436_PE612248_S4.JPG"
+        },
+        {
+            "product_id" : 3,
+            "product_name": "ตู้อ่างล้างหน้าบานคู่",
+            "product_desc": "ขาปรับได้ ช่วยให้วางบนพื้นไม่เรียบได้ เลือกติดบานตู้ให้เปิดทางซ้ายหรือขวาก็ได้",
+            "price": 5190,
+            "stock": "4",
+            "product_type_id": 2,
+            "modifier_id": "",
+            "image" : "https://www.ikea.com/th/th/images/products/dynan-dux-nan-talleviken-th-l-lewi-kh-ken-tu-xanglanghna-ban-khu-khaw__0666179_PE713453_S4.JPG"
+        },
+        {
+            "product_id" : 2,
+            "product_name": "ชั้นวางของ, ไฮกลอส ขาว",
+            "product_desc": "ใช้งานได้หลากหลาย ไม่ว่าจะวางแนวนอน แนวตั้ง วางพิงผนัง หรือจะใช้แบ่งพื้นที่ห้องก็ดี เฟอร์นิเจอร์จากซีรีส์ KALLAX/คอลแล็กซ์ ทั้งลิ้นชัก ชั้นวาง กล่อง และอุปกรณ์เสริมต่าง ๆ สามารถปรับเปลี่ยนได้ตามความชอบ การใช้งาน พื้นที่ในบ้าน และงบประมาณที่คุณมี",
+            "price": 2990,
+            "stock": "1",
+            "product_type_id": 3,
+            "modifier_id": "",
+            "image" : "https://www.ikea.com/th/th/images/products/kallax-khxl-l-ks-chan-wang-khxng-khaw__0627096_PE693189_S4.JPG"
+        },
+        {
+            "product_id" : 2,
+            "product_name": "ชั้นวางของพร้อมลิ้นชัก",
+            "product_desc": "มีพ็อกเก็ตสปริงรองรับสรีระได้ดีเยี่ยม ชั้นบนทำด้วยใยบอล ให้ความนุ่มสบายเป็นพิเศษเมื่อนั่ง มาพร้อมพนักพิงสูงและหมอนรองคอ เพื่อความสบายมากยิ่งขึ้น",
+            "price": 7490,
+            "stock": "2",
+            "product_type_id": 3,
+            "modifier_id": "",
+            "image" : "https://www.ikea.com/th/th/images/products/fjalkinge-fy-l-khing-nge-chan-wang-khxng-phrxm-lin-chak-khaw__0194040_PE350240_S4.JPG"
+        }
+    ],
+    "product_type":[
+        {
+            "product_type_id": 1,
+            "product_type_name": "โซฟา"
+        },
+        {
+            "product_type_id": 2,
+            "product_type_name": "โต๊ะไม้"
+        },
+        {
+            "product_type_id": 3,
+            "product_type_name": "ชั้นวางของ"
+        }
+    ]
+}

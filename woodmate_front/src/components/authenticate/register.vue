@@ -1,6 +1,12 @@
 <template>
   <div class="container-fulid wrapper">
     <div class="row">
+      <div class="col" id="frame1">
+        <img
+          src="https://static.dezeen.com/uploads/2018/02/voice-stockholm-design-week-furniture-dezeen-sq.jpg"
+          alt
+        >
+      </div>
       <div class="col">
         <div class="container" id="authen-form">
           <h1>Login</h1>
@@ -44,19 +50,13 @@
           </form>
           <div id="dont-have-acc">
             <p>
-              Don't have account? &ensp;
-              <router-link to="/register">
-                <button type="button" class="btn btn-outline-warning">Create new</button>
+              Already have an account? &ensp;
+              <router-link to="/login">
+                <button type="button" class="btn btn-outline-info">Login</button>
               </router-link>
             </p>
           </div>
         </div>
-      </div>
-      <div class="col" id="frame1">
-        <img
-          src="https://static.dezeen.com/uploads/2018/02/voice-stockholm-design-week-furniture-dezeen-sq.jpg"
-          alt
-        >
       </div>
     </div>
   </div>
@@ -64,7 +64,7 @@
 
 <script>
 export default {
-  name: "login",
+  name: "register",
   data() {
     return {};
   }
