@@ -49,7 +49,7 @@ class CartAdmin(admin.ModelAdmin):
 admin.site.register(Cart, CartAdmin)
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['oid', 'payment', 'status', 'date', 'total_price']
+    list_display = ['oid', 'payment', 'status', 'date', 'total_price', 'customer']
     list_per_page = 10
     list_filter = ['status']
 
@@ -60,3 +60,22 @@ class OrderListAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 admin.site.register(OrderList, OrderListAdmin)
+
+class AddressInline(admin.TabularInline):
+    model = Address
+    extra = 0
+
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ['cid', 'first_name', 'last_name']
+    list_per_page = 10
+    search_fields = ['first_name']
+    inlines = [AddressInline]
+
+admin.site.register(Customer, CustomerAdmin)
+
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ['address_id', 'cid']
+    list_per_page = 10
+    list_filter = ['cid']
+
+admin.site.register(Address, AddressAdmin)

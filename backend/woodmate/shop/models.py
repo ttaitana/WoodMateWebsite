@@ -9,7 +9,7 @@ class Customer(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.first_name
+        return self.first_name+' '+self.last_name
 
 class Sales(models.Model):
     sid = models.AutoField(primary_key=True)
@@ -18,7 +18,7 @@ class Sales(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.first_name
+        return self.first_name+' '+self.last_name
 
 class DeliveryMan(models.Model):
     dm_id = models.AutoField(primary_key=True)
@@ -26,6 +26,9 @@ class DeliveryMan(models.Model):
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=10)
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.first_name+' '+self.last_name
 
 class ProductType(models.Model):
     ptype_id = models.AutoField(primary_key=True)
@@ -39,6 +42,7 @@ class Product(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.PROTECT)
     product_name = models.CharField(max_length=100)
     product_desc = models.CharField(max_length=150)
+    product_pic = models.ImageField(null=True,blank=True, upload_to='picture')
     price = models.IntegerField()
     stock = models.IntegerField()
     modifier = models.ForeignKey(Sales, on_delete=models.PROTECT)
@@ -49,7 +53,17 @@ class Product(models.Model):
 class Order(models.Model):
     oid = models.AutoField(primary_key=True)
     payment = models.CharField(max_length=50)
-    status = models.CharField(max_length=30)
+    wait = 'Waiting'
+    acks = 'Acknowledge'
+    send = 'Send'
+    deliver = 'Delivered'
+    statuses = (
+        (wait, 'รอการอนุมัติ'),
+        (acks, 'รับทราบการสั่งจอง'),
+        (send, 'กำลังทำการส่งของ'),
+        (deliver, 'ส่งของเรียบร้อยแล้ว')
+    )
+    status = models.CharField(max_length=30, choices=statuses)
     date = models.DateField()
     total_price = models.IntegerField(null=True, blank=True)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
@@ -77,7 +91,7 @@ class Address(models.Model):
     area = models.CharField(max_length=50)
     province = models.CharField(max_length=50)
     postal_code = models.CharField(max_length=5)
-    cid = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    cid = models.OneToOneField(Customer, on_delete=models.CASCADE)
 
 class Feedback(models.Model):
     text = models.CharField(max_length=500)
