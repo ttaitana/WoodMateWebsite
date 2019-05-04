@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from shop.forms import *
 from shop.models import *
 import datetime
@@ -28,6 +28,8 @@ def register(request):
                 phone_number=request.POST.get('phone_number'),
                 user=new_user
             )
+            my_group = Group.objects.get(name='Customer') 
+            my_group.user_set.add(new_user)
             return redirect('index')
         else:
             print('no')
@@ -50,6 +52,14 @@ def my_login(request):
 
         if user:
             login(request, user)
+            groups = request.user.groups.filter(name="Sales")
+            for g in groups:
+                if g.name == 'Sales':
+                    return redirect('/admin')
+            groups = request.user.groups.filter(name="Delivery Man")
+            for g in groups:
+                if g.name == 'Delivery Man':
+                    return redirect('/admin')
 
             next_url = request.POST.get('next_url')
             if next_url:
@@ -222,6 +232,10 @@ def makeOrder(request):
     context = {}
     customer = Customer.objects.get(user = request.user)
     cart = Cart.objects.filter(cid = customer)
+    try:
+        address = Address.objects.get(cid = customer)
+    except:
+        return redirect('add_address')
     if request.method == 'POST':
         form = MakeOrderForm(request.POST)
         if form.is_valid():

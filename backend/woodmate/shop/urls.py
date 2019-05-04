@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('index/', views.index, name='index'),
@@ -21,6 +23,5 @@ urlpatterns = [
     path('makeOrder/', views.makeOrder, name='makeorder'),
     path('checkOrder/', views.checkOrder, name='checkorder'),
     path('orderDetails/<int:order_id>', views.orderDetails, name='orderdetails'),
-
 
 ]

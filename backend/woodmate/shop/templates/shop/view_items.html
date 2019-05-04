@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
     <head>
         <title>View product</title>
@@ -19,7 +20,7 @@
             {% for i in item %}
             <tr>
                 <td><a href="{% url 'itemdetails' product_id=i.product_id %}">{{ i.product_name }}</a></td>
-                <td>{{ i.product_desc }}</td>
+                <td><image src="/media/{{ i.product_pic }}" width="200"> {{ i.product_desc }}</td>
                 <td>{{ i.price }}</td>
             </tr>
             {% endfor %}
