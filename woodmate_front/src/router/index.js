@@ -5,6 +5,7 @@ import landingPage from '../components/landingPage/base'
 import login from '../components/authenticate/login'
 import register from '../components/authenticate/register'
 import products from '../components/itemsPage/productSelect'
+import cartItem from '../components/itemCart/cartPage'
 
 Vue.use(Router)
 
@@ -31,5 +32,10 @@ export default new Router({
       name: 'itemsPage',
       component: products
     },
+    {
+      path: '/mycart',
+      name: 'cartpage',
+      component: cartItem
+    }
   ]
 })

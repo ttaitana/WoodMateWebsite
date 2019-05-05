@@ -37,10 +37,10 @@
             <router-link to="/login" class="icon">
               <i class="far fa-user fa-lg"></i>
             </router-link>&ensp;
-            <a href="#" class="icon">
+            <router-link to="mycart" class="icon">
               <i class="fas fa-shopping-cart fa-lg"></i>
               <span class="badge">{{ cartsize }}</span>
-            </a>
+            </router-link>
           </p>
         </div>
       </div>
