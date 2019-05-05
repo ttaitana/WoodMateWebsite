@@ -30,6 +30,6 @@ export default new Router({
       path: '/products',
       name: 'itemsPage',
       component: products
-    }
+    },
   ]
 })

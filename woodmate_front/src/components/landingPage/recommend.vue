@@ -1,11 +1,11 @@
 <template>
   <div class="container-fulid" id="frame">
-    <img src="https://d26iwjla857pn6.cloudfront.net/2.0/og-image.jpg" alt>
+    <img src="https://d26iwjla857pn6.cloudfront.net/2.0/og-image.jpg" id="background">
     <div class="container" id="text-holder">
       <p class="title">Dream house</p>
       <hr>
       <p>สวยอย่างคลาสสิกด้วยเฟอร์นิเจอร์ไม้จาก woodmate</p>
-      <a href="#">
+      <a href="/products">
           <button type="button" class="btn btn-outline-dark" id="mainbtn">
               ดูสินค้า
           </button>
@@ -35,7 +35,7 @@ hr{
   text-transform: uppercase;
   font-size: 2em;
 }
-img {
+#background {
   width: 100%;
   /* transform: translateY(-30vh);  */
   position: absolute;

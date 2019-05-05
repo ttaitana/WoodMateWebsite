@@ -6,7 +6,9 @@
           <p>woodmate group | Web programming</p>
         </div>-->
         <div class="col-sm my-auto">
-          <h2>WoodMate</h2>
+          <router-link to="/" id="logo">
+            <h2>WoodMate</h2>
+          </router-link>
         </div>
         <div class="col-sm my-auto">
           <div class="container-fulid">
@@ -37,6 +39,7 @@
             </router-link>&ensp;
             <a href="#" class="icon">
               <i class="fas fa-shopping-cart fa-lg"></i>
+              <span class="badge">{{ cartsize }}</span>
             </a>
           </p>
         </div>
@@ -46,16 +49,24 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "navbar",
   data() {
     return {};
   },
-  methods: {}
+  methods: {},
+  computed: {
+    ...mapState(['cartsize'])
+  }
 };
 </script>
 
 <style>
+#logo {
+  text-decoration: none;
+  color: #2f2d2e;
+}
 #inform {
   color: rgb(156, 156, 156);
 }
@@ -66,7 +77,7 @@ export default {
 .icon:hover {
   color: #f18f01;
 }
-.row {
+#top-nav>.row {
   width: 100%;
 }
 #top-nav {

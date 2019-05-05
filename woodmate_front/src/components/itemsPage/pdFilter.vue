@@ -38,6 +38,7 @@ export default {
   methods:{
       pushPull(e){
           this.$store.commit('setFilter', this.select)
+          console.log(this.select)
       }
   }
 };
