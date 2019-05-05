@@ -3,34 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <h1>LOGIN to My Poll App</h1>
-    <br>
-    <p>
-        <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <table border="1">
-            {% if error %}
-                <tr><td colspan="2" style="text-align: center;"><span style="color: red;">{{ error }}</span></td></tr>
-            {% endif %}
-        <tr>
-            <th>USERNAME:</th>
-            <td><input type="text" name="username"></td>
-        </tr>
-        <tr>
-            <th>PASSWORD:</th>
-            <td><input type="text" name="password"></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="hidden" name="next_url" value="{{ next_url }}">
-                <input type="submit" value="LOGIN">
-            </td>
-        </tr>
-        </table>
-    </form>
-    <a href="{% url 'index' %}">Back to Home Page</a>
-    </p>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <div id="app"><!---->
+        <div class="container-fulid wrapper">
+            <div class="row">
+                 <div class="col-sm-6">
+                    <div id="authen-form" class="container">
+                        <h1>Login</h1>
+                        <div class="choice">
+                            <button id="facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                | Login with Facebook
+                            </button>
+                            <button id="google">
+                                <i class="fab fa-google"></i>
+                                 | Login with Google account
+                            </button>
+                        </div> 
+                        <p>- OR -</p>
+                        <br>
+                        <form method="POST" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" name="username" class="form-control">
+                            </div> 
+                            <div class="form-group">
+                                <input type="text" id="exampleInputPassword1" placeholder="Password" name="password" class="form-control"></div>
+                                <div class="form-group form-check"><span id="remember">
+                                <input type="checkbox" id="exampleCheck1" class="form-check-input">
+                                <label for="exampleCheck1" class="form-check-label">Remember me</label>
+                            </span>
+                            <a href="/" class="router-link-active" id="forget">Forgot Password?</a>
+                        </div> 
+                        <br> 
+                        <button type="submit" id="submit" class="btn btn-primary btn-block">Login</button>
+                    </form> 
+                    <div id="dont-have-acc">
+                        <p>Don't have account?  
+                            <a href="/register" class="">
+                                <button type="button" class="btn btn-outline-warning">Create new</button>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="frame1" class="col-sm">
+                <img src="https://static.dezeen.com/uploads/2018/02/voice-stockholm-design-week-furniture-dezeen-sq.jpg" alt="">
+            </div>
+        </div>
+    </div></div>
+    <!-- built files will be auto injected -->
+
+    <script type="text/javascript" src="/app.js"></script>
+
+    <style>
+            input[type="checkbox"] {
+              background: transparent;
+              border: 1px solid black;
+            }
+            .wrapper {
+              width: 100vw;
+              height: 100vh;
+              overflow: hidden;
+            }
+            #authen-form {
+              padding: 10em;
+            }
+            img {
+              width: 100%;
+              /* transform: translateY(-30vh);  */
+              position: absolute;
+              left: 0px;
+              top: 0px;
+              z-index: -10;
+            }
+            #frame1 {
+              padding-top: 15vh;
+              margin: 0 auto;
+              position: relative;
+              height: 100vh;
+              overflow: hidden;
+            }
+            #remember {
+              float: left;
+            }
+            .choice {
+              margin: 2em 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .choice > button {
+              margin: 0 2em;
+              padding: 0.5em 1.5em;
+              border: none;
+              color: rgb(241, 241, 241);
+            }
+            
+            .choice > button > i {
+              color: white;
+            }
+            #facebook {
+              background: #4267b2;
+            }
+            #google {
+              background: #ea4335;
+            }
+            #forget {
+              float: right;
+            }
+            #submit {
+              margin-top: 1em;
+            }
+            #dont-have-acc {
+              padding-top: 5vh;
+            }
+            </style>
 </body>
 </html>

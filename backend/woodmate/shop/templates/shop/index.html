@@ -3,24 +3,120 @@
     <head>
         <title>Home page</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-        <a href="{% url 'viewitems' type_id=0 %}">View Item</a>
-        <br>
-        {% if user.is_authenticated %}
-        <a href="{% url 'address' %}">Address</a>
-        <br>
-        <a href="{% url 'editcart' %}">Edit Cart</a>
-        <br>
-        <a href="{% url 'checkorder' %}">Check your order</a>
-        <br>
-        <a href="{% url 'feedback' %}">Send Feedback</a>
-        <br>
-        <a href="{% url 'logout' %}">Logout</a>
-        {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        <br>
-        <a href="{% url 'register' %}">Register</a>
-        {% endif %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
+    <div id="app"><nav class="navbar">
+        <div id="top-nav" class="container-fulid">
+            <div class="row">
+            <div class='col-sm-1'></div>
+              <div class="col-sm my-auto">
+                  <a href="{% url 'index' %}" class="router-link-exact-active router-link-active" id="logo">
+                    <h2>WoodMate</h2></a>
+                </div>
+                <div class="col-sm my-auto">
+                    <div class="container-fulid">
+                        <ul class="nav-option">
+                            <li><a href="#" target="_self">สินค้า</a></li> 
+                            <li><a href="#" target="_self">มาใหม่</a></li> 
+                            <li><a href="#" target="_self">โปรโมชั่น</a></li> 
+                            <li><a href="#" target="_self">เกียวกับ</a></li>
+                        </ul>
+                    </div>
+                </div> 
+                <div class="col-sm my-auto">
+                    <p><i id="searchIcon" class="fas fa-search"></i>
+                        <input type="text" placeholder="Search.." name="search" class="inputText"> 
+                        {% if user.is_authenticated %}
+                        <a href="/mycart" class="icon">
+                            Cart
+                        </a>
+                        <a href="{% url 'logout' %}" class="icon">
+                            Logout
+                        </a>
+                        {% else %}
+                        <a href="/login" class="icon">
+                            Login
+                        </a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div id="frame" class="col-sm">
+            <img src="https://d26iwjla857pn6.cloudfront.net/2.0/og-image.jpg" id="background"> 
+        </div>
+        <div id="text-holder" class="col-sm">
+                <p class="title">Dream house</p> 
+                <hr> 
+                <p>สวยอย่างคลาสสิกด้วยเฟอร์นิเจอร์ไม้จาก woodmate</p>
+                 <a href="/products">
+                    <button type="button" id="mainbtn" class="btn btn-outline-dark">ดูสินค้า</button>
+                </a>
+            </div>
+    </div>
+    </div>
+<!-- built files will be auto injected -->
+          
+          <style>
+          #logo {
+            text-decoration: none;
+            color: #2f2d2e;
+          }
+          #inform {
+            color: rgb(156, 156, 156);
+          }
+          .icon {
+            color: #2f2d2e;
+            transition: 0.1s;
+          }
+          .icon:hover {
+            color: #f18f01;
+          }
+          #top-nav>.row {
+            width: 100%;
+          }
+          #top-nav {
+            display: flex;
+          }
+          .navbar {
+            padding-top: 1em;
+            margin: 2em auto;
+            display: block;
+          }
+          .nav-option {
+            float: left;
+          }
+          
+          .nav-option > li {
+            list-style-type: none;
+            display: inline-block;
+            float: none;
+            padding: 0 1em;
+          }
+          .nav-option > li > a {
+            color: #2f2d2e;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: 0.2s;
+          }
+          .nav-option > li > a:hover {
+            color: #f18f01;
+          }
+          .inputText {
+            border: none;
+            border-bottom: 1px solid #2f2d2e;
+            transition: 0.4s;
+            margin: 0.5em;
+            padding: 0.3em 1em;
+          }
+          </style>
+          
     </body>
 </html>
