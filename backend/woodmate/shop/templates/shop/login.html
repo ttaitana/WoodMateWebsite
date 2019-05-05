@@ -32,12 +32,12 @@
                         <form method="POST" action="{% url 'login' %}">
                             {% csrf_token %}
                             <div class="form-group">
-                                <label for="email"><b> Email </b></label>
+                                <label for="username"><b> Username </b></label>
                                 <input type="text" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" name="username" class="form-control">
                             </div> 
                             <div class="form-group">
                                 <label for="password"><b> Password </b></label>
-                                <input type="text" id="exampleInputPassword1" placeholder="Password" name="password" class="form-control"></div>
+                                <input type="password" id="exampleInputPassword1" placeholder="Password" name="password" class="form-control"></div>
                                 <div class="form-group form-check"><span id="remember">
                                 <input type="checkbox" id="exampleCheck1" class="form-check-input">
                                 <label for="exampleCheck1" class="form-check-label">Remember me</label>
@@ -49,7 +49,7 @@
                     </form> 
                     <div id="dont-have-acc">
                         <p>Don't have account?  
-                            <a href="/register" class="">
+                            <a href="{% url 'register' %}" class="">
                                 <button type="button" class="btn btn-outline-warning">Create new</button>
                             </a>
                         </p>

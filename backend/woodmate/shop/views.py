@@ -170,6 +170,9 @@ def viewAllItem(request, type_id):
         items = Product.objects.all()
     context['item'] = items
     context['types'] = types
+    for i in items:
+        print('1')
+        print(i.product_name)
     return render(request, template_name='shop/view_items.html', context=context)
 
 def itemDetails(request, product_id):

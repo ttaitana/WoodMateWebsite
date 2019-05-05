@@ -23,7 +23,59 @@
 </head>
 
 <body>
-    <!-- ประเภทสินค้า : 
+    <!-- Navbar -->
+    <div id="app">
+        <nav class="navbar">
+            <div id="top-nav" class="container-fulid">
+                <div class="row">
+                    <div class='col-sm-1'></div>
+                    <div class="col-sm my-auto">
+                        <a href="{% url 'index' %}" class="router-link-exact-active router-link-active" id="logo">
+                            <h2>WoodMate</h2>
+                        </a>
+                    </div>
+                    <div class="col-sm my-auto">
+                        <div class="container-fulid">
+                            <ul class="nav-option">
+                                <li><a href="#" target="_self">สินค้า</a></li>
+                                <li><a href="#" target="_self">มาใหม่</a></li>
+                                <li><a href="#" target="_self">โปรโมชั่น</a></li>
+                                <li><a href="#" target="_self">เกียวกับ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm my-auto">
+                        <p><i id="searchIcon" class="fas fa-search"></i>
+                            <input type="text" placeholder="Search.." name="search" class="inputText">
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'editcart' %}" class="icon">
+                                <i class="fas fa-shopping-cart fa-lg"></i>
+                            </a>
+                            <a href="{% url 'address' %}" class="icon">
+                                Address
+                            </a>
+                            <a href="{% url 'checkorder' %}" class="icon">
+                                Check Order
+                            </a>
+                            <a href="{% url 'feedback' %}" class="icon">
+                                Send Feedback
+                            </a>
+                            <a href="{% url 'logout' %}" class="icon">
+                                Logout
+                            </a>
+                            {% else %}
+                            <a href="{% url 'login' %}" class="icon">
+                                <i class="far fa-user fa-lg"></i> Login
+                            </a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- End navbar -->
+        <!-- ประเภทสินค้า : 
         <a href="{% url 'viewitems' type_id=0 %}">All</a>
         {% for t in types %}
         <a href="{% url 'viewitems' type_id=t.ptype_id %}">{{ t.ptype_name }}</a>
@@ -43,238 +95,312 @@
             {% endfor %}
         </table>
         <a href="{% url 'index' %}">Go back</a> -->
-    <div class="container-fluid" id="frame">
-        <div class="jumbotron">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention
-                to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-            </p>
-        </div>
-        <div class="row" id="products">
-            <div class="col-3">
-                <div class="container-fluid" id="ft">
-                    <p>Filter</p>
-                    <hr>
-                    <!-- <p>{{ filter  }}</p> -->
-                    <label class="pure-material-checkbox">
-                        <input type="checkbox" id="pd-filter" style="float:right">
-
-                        <span>สินค้าใหม่</span>
-                    </label>
-                    <p style="margin-bottom:.2em">
-                        <b>ประเภท</b>
-                    </p>
-                    <ul class="filter-list">
-                        <li v-for="t in type" v-model="selectd" class="filter-items">
-                            <label class="pure-material-checkbox">
-                                <input type="checkbox" id="pd-filter" style="float:right" :value="t.product_type_id"
-                                    v-model="select" @change="pushPull">
-
-                                <span>{{ t.product_type_name }}</span>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
+        <div class="container-fluid" id="frame">
+            <div class="jumbotron">
+                <h1 class="display-4">Hello, world!</h1>
+                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
+                    attention
+                    to featured content or information.</p>
+                <hr class="my-4">
+                <p>It uses utility classes for typography and spacing to space content out within the larger container.
+                </p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                </p>
             </div>
-            <div class="col">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-6 items" v-for="p in products">
-                            <div class="row">
-                                <div class="col pd-img">
-                                    <img :src="p.image" alt="">
-                                </div>
-                                <div class="col pd-detail">
-                                    <p class="pd-title">
-                                        <b style="float:left">{{ p.product_name }}</b>
-                                        <b style="float:right" class="pd-price">{{ p.price.toLocaleString() }} ฿</b>
-                                    </p>
-                                    <br>
-                                    <p class="pd-desc">
-                                        {{ p.product_desc }}
-                                    </p>
-                                    <br>
-                                    <div class="form-group row">
-                                        <label for="amount" class="col-3 col-form-label">จำนวน</label>
-                                        <input type="number" min="0" :max="p.stock" value="0" class="form-control"
-                                            style="width: 5em;">
+            <div class="row" id="products">
+                <div class="col-3">
+                    <div class="container-fluid" id="ft">
+                        <p>Filter</p>
+                        <hr>
+                        <!-- <p>{{ filter  }}</p> -->
+                        <label class="pure-material-checkbox">
+                            <input type="checkbox" id="pd-filter" style="float:right">
+
+                            <span>สินค้าใหม่</span>
+                        </label>
+                        <p style="margin-bottom:.2em">
+                            <b>ประเภท</b>
+                        </p>
+                        {% for t in types %}
+                        <ul class="filter-list">
+                            <li class="filter-items">
+                                <a href="{% url 'viewitems' type_id=t.ptype_id %}">
+                                    <span>{{ t.ptype_name }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="container-fluid">
+                        <div class="row">
+                            {% for i in item %}
+                            <div class="col-6 items">
+                                <div class="row">
+                                    <div class="col pd-img">
+                                        <img src="/media/{{ i.product_pic }}" width="200">
                                     </div>
-                                    <br>
-                                    <button type="button" class="button">เพิ่มสินค้าลงตะกร้า
-                                        &ensp;
-                                        <i class="fas fa-arrow-right"></i></button>
+                                    <div class="col pd-detail">
+                                        <p class="pd-title">
+                                            <b style="float:left">{{ i.product_name }}</b>
+                                            <b style="float:right" class="pd-price">{{ i.price }} ฿</b>
+                                        </p>
+                                        <br>
+                                        <p class="pd-desc">
+                                            {{ i.product_desc }}
+                                        </p>
+                                        <br>
+                                        <div class="form-group row">
+                                            <label for="amount" class="col-3 col-form-label">จำนวน</label>
+                                            <input type="number" min="0" :max="p.stock" value="0" class="form-control"
+                                                style="width: 5em;">
+                                        </div>
+                                        <br>
+                                        <button type="button" class="button">เพิ่มสินค้าลงตะกร้า
+                                            &ensp;
+                                            <i class="fas fa-arrow-right"></i></button>
+                                    </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>
 
 <style>
-        #frame {
-            padding: 0 3em;
-          }
-          #products{
-              padding-top: 1em;
-          }
-        .button{
-            padding: .7em 2em;
-            color: white;
-            border-radius: 0;
-            border: none;
-            background: #FF7865;
-        }
-        .items{
-            padding: 1em 1em 3em 1em;
-        }
-        .pd-title{
-            font-size: 1.2em;
-        }
-        .pd-detail{
-            text-align: left;
-        }
-        .pd-desc{
-            color: rgb(111, 134, 160);
-        }
-        .pd-img > img{
-            width: 100%;
-            height: auto;
-        }
+    /* nabvar */
+    #logo {
+        text-decoration: none;
+        color: #2f2d2e;
+    }
 
-        #ft {
-            text-align: left;
-          }
-          .filter-list {
-            list-style-type: none;
-          }
-          .filter-items {
-          }
-          
-          .pure-material-checkbox {
-            z-index: 0;
-            position: relative;
-            display: inline-block;
-            color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
-            font-family: var(
-              --pure-material-font,
-              "Roboto",
-              "Segoe UI",
-              BlinkMacSystemFont,
-              system-ui,
-              -apple-system
-            );
-            font-size: 16px;
-            line-height: 1.5;
-          }
-          
-          /* Input */
-          .pure-material-checkbox > input {
-            appearance: none;
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            z-index: -1;
-            position: absolute;
-            left: -10px;
-            top: -8px;
-            display: block;
-            margin: 0;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
-            box-shadow: none;
-            outline: none;
-            opacity: 0;
-            transform: scale(1);
-            pointer-events: none;
-            transition: opacity 0.3s, transform 0.2s;
-          }
-          
-          /* Span */
-          .pure-material-checkbox > span {
-            display: inline-block;
-            width: 100%;
-            cursor: pointer;
-          }
-          
-          /* Box */
-          .pure-material-checkbox > span::before {
-            content: "";
-            display: inline-block;
-            box-sizing: border-box;
-            margin: 3px 11px 3px 1px;
-            border: solid 2px; /* Safari */
-            border-color: rgba(146, 153, 161, 0.644);
-            border-radius: 2px;
-            width: 18px;
-            height: 18px;
-            vertical-align: top;
-            transition: border-color 0.2s, background-color 0.2s;
-          }
-          
-          /* Checkmark */
-          .pure-material-checkbox > span::after {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 3px;
-            left: 1px;
-            width: 10px;
-            height: 5px;
-            border: solid 2px transparent;
-            border-right: none;
-            border-top: none;
-            transform: translate(3px, 4px) rotate(-45deg);
-          }
-          
-          /* Checked, Indeterminate */
-          .pure-material-checkbox > input:checked,
-          .pure-material-checkbox > input:indeterminate {
-            background-color: #2c3e50;
-          }
-          
-          .pure-material-checkbox > input:checked + span::before,
-          .pure-material-checkbox > input:indeterminate + span::before {
-            border-color: #2c3e50;
-            background-color: #2c3e50;
-          }
-          
-          .pure-material-checkbox > input:checked + span::after,
-          .pure-material-checkbox > input:indeterminate + span::after {
-            border-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
-          }
-          
-          .pure-material-checkbox > input:indeterminate + span::after {
-            border-left: none;
-            transform: translate(4px, 3px);
-          }
-          
-          /* Disabled */
-          .pure-material-checkbox > input:disabled {
-            opacity: 0;
-          }
-          
-          .pure-material-checkbox > input:disabled + span {
-            color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
-            cursor: initial;
-          }
-          
-          .pure-material-checkbox > input:disabled + span::before {
-            border-color: currentColor;
-          }
-          
-          .pure-material-checkbox > input:checked:disabled + span::before,
-          .pure-material-checkbox > input:indeterminate:disabled + span::before {
-            border-color: transparent;
-            background-color: currentColor;
-          }
-        </style>
+    #inform {
+        color: rgb(156, 156, 156);
+    }
+
+    .icon {
+        color: #2f2d2e;
+        transition: 0.1s;
+    }
+
+    .icon:hover {
+        color: #f18f01;
+    }
+
+    #top-nav>.row {
+        width: 100%;
+    }
+
+    #top-nav {
+        display: flex;
+    }
+
+    .navbar {
+        padding-top: 1em;
+        margin: 2em auto;
+        display: block;
+    }
+
+    .nav-option {
+        float: left;
+    }
+
+    .nav-option>li {
+        list-style-type: none;
+        display: inline-block;
+        float: none;
+        padding: 0 1em;
+    }
+
+    .nav-option>li>a {
+        color: #2f2d2e;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: 0.2s;
+    }
+
+    .nav-option>li>a:hover {
+        color: #f18f01;
+    }
+
+    .inputText {
+        border: none;
+        border-bottom: 1px solid #2f2d2e;
+        transition: 0.4s;
+        margin: 0.5em;
+        padding: 0.3em 1em;
+    }
+
+    /* end nabvar */
+    #frame {
+        padding: 0 3em;
+    }
+
+    #products {
+        padding-top: 1em;
+    }
+
+    .button {
+        padding: .7em 2em;
+        color: white;
+        border-radius: 0;
+        border: none;
+        background: #FF7865;
+    }
+
+    .items {
+        padding: 1em 1em 3em 1em;
+    }
+
+    .pd-title {
+        font-size: 1.2em;
+    }
+
+    .pd-detail {
+        text-align: left;
+    }
+
+    .pd-desc {
+        color: rgb(111, 134, 160);
+    }
+
+    .pd-img>img {
+        width: 100%;
+        height: auto;
+    }
+
+    #ft {
+        text-align: left;
+    }
+
+    .filter-list {
+        list-style-type: none;
+    }
+
+    .filter-items {}
+
+    .pure-material-checkbox {
+        z-index: 0;
+        position: relative;
+        display: inline-block;
+        color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+        font-family: var(--pure-material-font,
+            "Roboto",
+            "Segoe UI",
+            BlinkMacSystemFont,
+            system-ui,
+            -apple-system);
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    /* Input */
+    .pure-material-checkbox>input {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        z-index: -1;
+        position: absolute;
+        left: -10px;
+        top: -8px;
+        display: block;
+        margin: 0;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+        box-shadow: none;
+        outline: none;
+        opacity: 0;
+        transform: scale(1);
+        pointer-events: none;
+        transition: opacity 0.3s, transform 0.2s;
+    }
+
+    /* Span */
+    .pure-material-checkbox>span {
+        display: inline-block;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    /* Box */
+    .pure-material-checkbox>span::before {
+        content: "";
+        display: inline-block;
+        box-sizing: border-box;
+        margin: 3px 11px 3px 1px;
+        border: solid 2px;
+        /* Safari */
+        border-color: rgba(146, 153, 161, 0.644);
+        border-radius: 2px;
+        width: 18px;
+        height: 18px;
+        vertical-align: top;
+        transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    /* Checkmark */
+    .pure-material-checkbox>span::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 3px;
+        left: 1px;
+        width: 10px;
+        height: 5px;
+        border: solid 2px transparent;
+        border-right: none;
+        border-top: none;
+        transform: translate(3px, 4px) rotate(-45deg);
+    }
+
+    /* Checked, Indeterminate */
+    .pure-material-checkbox>input:checked,
+    .pure-material-checkbox>input:indeterminate {
+        background-color: #2c3e50;
+    }
+
+    .pure-material-checkbox>input:checked+span::before,
+    .pure-material-checkbox>input:indeterminate+span::before {
+        border-color: #2c3e50;
+        background-color: #2c3e50;
+    }
+
+    .pure-material-checkbox>input:checked+span::after,
+    .pure-material-checkbox>input:indeterminate+span::after {
+        border-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    }
+
+    .pure-material-checkbox>input:indeterminate+span::after {
+        border-left: none;
+        transform: translate(4px, 3px);
+    }
+
+    /* Disabled */
+    .pure-material-checkbox>input:disabled {
+        opacity: 0;
+    }
+
+    .pure-material-checkbox>input:disabled+span {
+        color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+        cursor: initial;
+    }
+
+    .pure-material-checkbox>input:disabled+span::before {
+        border-color: currentColor;
+    }
+
+    .pure-material-checkbox>input:checked:disabled+span::before,
+    .pure-material-checkbox>input:indeterminate:disabled+span::before {
+        border-color: transparent;
+        background-color: currentColor;
+    }
+</style>

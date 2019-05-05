@@ -9,6 +9,10 @@ class CustomerForm(forms.Form):
     last_name = forms.CharField(max_length=50, required=True)
     phone_number = forms.CharField(max_length=10, required=True)
 
+    first_name.widget.attrs.update({'class': 'form-control', 'placeholder': 'First Name'})
+    last_name.widget.attrs.update({'class': 'form-control', 'placeholder': 'Last Name'})
+    phone_number.widget.attrs.update({'class': 'form-control', 'placeholder': 'eg. 089-147-xxxx'})
+
 class AddressForm(forms.Form):
     address_desc = forms.CharField(max_length=500, required=True, widget=forms.Textarea)
     district = forms.CharField(max_length=50, required=True)
@@ -22,9 +26,16 @@ def validate_passlen(value):
 
 class UserForm(forms.Form):
     username = forms.CharField(label='ชื่อผู้ใช้', max_length=100, required=True)
-    password = forms.CharField(label='รหัสผ่าน', max_length=100, required=True, validators=[validate_passlen])
-    confirmpass = forms.CharField(label='ยืนยันรหัสผ่าน', max_length=100, required=True)
+    password = forms.CharField(label='รหัสผ่าน', max_length=100, required=True, validators=[validate_passlen], widget=forms.PasswordInput)
+    confirmpass = forms.CharField(label='ยืนยันรหัสผ่าน', max_length=100, required=True, widget=forms.PasswordInput)
     email = forms.EmailField(required=True)
+
+    email.widget.attrs.update({'class': "form-control",
+                    'aria-describedby': "emailHelp",
+                    'placeholder':"eg.woodmate@furniture.com"})
+    password.widget.attrs.update({'class': 'form-control', 'placeholder': 'Password'})
+    confirmpass.widget.attrs.update({'class': 'form-control', 'placeholder': 'Confirm Password'})
+    username.widget.attrs.update({'class': 'form-control', 'placeholder': 'Username'})
 
     def clean(self):
         cleaned_data = super().clean()
