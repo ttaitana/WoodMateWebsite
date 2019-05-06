@@ -96,18 +96,17 @@
         </table>
         <a href="{% url 'index' %}">Go back</a> -->
         <div class="container-fluid" id="frame">
-            <div class="jumbotron">
-                <h1 class="display-4">Hello, world!</h1>
-                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
-                    attention
-                    to featured content or information.</p>
-                <hr class="my-4">
-                <p>It uses utility classes for typography and spacing to space content out within the larger container.
-                </p>
+            <div class="jumbotron" id="recommend">
+                <h1 class="display-4">ทันสมัยและคลาสสิกไปพร้อมกัน</h1>
                 <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                    เฟอร์นิเจอร์ไม้คุณภาพดี ผ่านกระบวนการแปรรูปจากช่างไม้ผู้มีความชำนาญและการออกแบบที่ทันสมัย
+                </p>
+                <hr class="my-4" align="left">
+                <p>
+                    ไม่ว่าจะแต่งบ้านสไตล์ไหนก็เข้ากัน
                 </p>
             </div>
+
             <div class="row" id="products">
                 <div class="col-3">
                     <div class="container-fluid" id="ft">
@@ -160,16 +159,16 @@
                                         </p>
                                         <br>
                                         <form method="POST" action="{% url 'addtocart' product_id=i.product_id %}">
-                                        {% csrf_token %}
-                                        <div class="form-group row">
-                                            <label for="amount" class="col-3 col-form-label">จำนวน</label>
-                                            <input type="number" min="0" :max="p.stock" value="0" class="form-control"
-                                                style="width: 5em;" name="number">
-                                        </div>
-                                        <br>
-                                        <button type="submit" class="button">เพิ่มสินค้าลงตะกร้า
-                                            &ensp;
-                                            <i class="fas fa-arrow-right"></i></button></form>
+                                            {% csrf_token %}
+                                            <div class="form-group row">
+                                                <label for="amount" class="col-3 col-form-label">จำนวน</label>
+                                                <input type="number" min="0" :max="p.stock" value="0"
+                                                    class="form-control" style="width: 5em;" name="number">
+                                            </div>
+                                            <br>
+                                            <button type="submit" class="button">เพิ่มสินค้าลงตะกร้า
+                                                &ensp;
+                                                <i class="fas fa-arrow-right"></i></button></form>
                                     </div>
                                 </div>
                             </div>
@@ -248,8 +247,23 @@
     }
 
     /* end nabvar */
+    #recommend {
+        background: url('https://res.cloudinary.com/made-com/image/upload/c_lfill,d_madeplusgrey.svg,f_auto,g_auto,h_600,q_auto:best,w_1440/v1/mws/3b94ac9ee5a3b9f71f4461bcad0e2de10457100b_rhye_2019_03_01_carousels_desktop_02.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        position: relative;
+        background-size: cover;
+        color: white;
+        position: relative;
+    }
+    #recommend > hr{
+        border: 2px solid #FF7865;
+        width: 30%;
+    }
+
     #frame {
         padding: 0 3em;
+        width: 90vw;
     }
 
     #products {

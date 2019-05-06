@@ -32,9 +32,6 @@
           </div>
           <div class="col-sm my-auto">
             <div class="container-fulid">
-              <p><i id="searchIcon" class="fas fa-search"></i>
-                        <input type="text" placeholder="Search.." name="search" class="inputText"> 
-                        <br>
               <ul class="nav-option">
                 <li><a href="#" target="_self">สินค้า</a></li>
                 <li><a href="#" target="_self">มาใหม่</a></li>
@@ -45,7 +42,13 @@
           </div>
           <div class="col-sm my-auto">
             {% if user.is_authenticated %}
+<<<<<<< Updated upstream
             <a href="{% url 'profile' %}" id="userid">
+=======
+            <i id="searchIcon" class="fas fa-search"></i>
+            <input type="text" placeholder="Search.." name="search" class="inputText">
+            <a href="#" id="userid">
+>>>>>>> Stashed changes
               <i class="far fa-id-card"></i>&ensp;<b>{{ user.username }}</b>
             </a>
             <!-- <a href="{% url 'address' %}" class="icon">
@@ -57,9 +60,11 @@
             <a href="{% url 'feedback' %}" class="icon">
               Send Feedback
             </a> -->
+            &ensp;
             <a href="{% url 'editcart' %}" class="icon">
               <i class="fas fa-shopping-cart fa-lg"></i> Cart
             </a>
+            &ensp;
             <a href="{% url 'logout' %}" class="icon">
               Logout
             </a>
@@ -156,10 +161,12 @@
       margin: 0.5em;
       padding: 0.3em 1em;
     }
-    #userid{
+
+    #userid {
       text-decoration: none;
-      
+
     }
+
     /* end nabvar */
   </style>
 
