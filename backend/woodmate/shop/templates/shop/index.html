@@ -42,13 +42,7 @@
           </div>
           <div class="col-sm my-auto">
             {% if user.is_authenticated %}
-<<<<<<< Updated upstream
             <a href="{% url 'profile' %}" id="userid">
-=======
-            <i id="searchIcon" class="fas fa-search"></i>
-            <input type="text" placeholder="Search.." name="search" class="inputText">
-            <a href="#" id="userid">
->>>>>>> Stashed changes
               <i class="far fa-id-card"></i>&ensp;<b>{{ user.username }}</b>
             </a>
             <!-- <a href="{% url 'address' %}" class="icon">
