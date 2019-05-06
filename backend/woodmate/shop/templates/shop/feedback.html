@@ -27,60 +27,53 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <!-- Navbar -->
-    <div id="app">
+  <div id="app">
         <nav class="navbar">
-            <div id="top-nav" class="container-fulid">
-                <div class="row">
-                    <div class="col-sm my-auto">
-                        <a href="{% url 'index' %}" class="router-link-exact-active router-link-active" id="logo">
-                            <h2>WoodMate</h2>
-                        </a>
-                    </div>
-                    <div class="col-sm my-auto">
-                        <div class="container-fulid">
-                            <p><i id="searchIcon" class="fas fa-search"></i>
-                                <input type="text" placeholder="Search.." name="search" class="inputText">
-                                <br>
-                                <ul class="nav-option">
-                                    <li><a href="#" target="_self">สินค้า</a></li>
-                                    <li><a href="#" target="_self">มาใหม่</a></li>
-                                    <li><a href="#" target="_self">โปรโมชั่น</a></li>
-                                    <li><a href="#" target="_self">เกียวกับ</a></li>
-                                </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm my-auto">
-                        {% if user.is_authenticated %}
-                        <a href="#" id="userid">
-                            <i class="far fa-id-card"></i>&ensp;<b>{{ user.username }}</b>
-                        </a>
-                        <!-- <a href="{% url 'address' %}" class="icon">
-              Address
-            </a>
-            <a href="{% url 'checkorder' %}" class="icon">
-              Check Order
-            </a>
-            <a href="{% url 'feedback' %}" class="icon">
-              Send Feedback
-            </a> -->
-                        <a href="{% url 'editcart' %}" class="icon">
-                            <i class="fas fa-shopping-cart fa-lg"></i> Cart
-                        </a>
-                        <a href="{% url 'logout' %}" class="icon">
-                            Logout
-                        </a>
-                        {% else %}
-                        <a href="{% url 'login' %}" class="icon">
-                            <i class="far fa-user fa-lg"></i> Login
-                        </a>
-                        {% endif %}
-                        </p>
-                    </div>
+          <div id="top-nav" class="container-fulid">
+            <div class="row">
+              <div class="col-sm my-auto">
+                <a href="{% url 'index' %}" class="router-link-exact-active router-link-active" id="logo">
+                  <h2>WoodMate</h2>
+                </a>
+              </div>
+              <div class="col-sm my-auto">
+                <div class="container-fulid">
+                  <ul class="nav-option">
+                    <li><a href="#" target="_self">สินค้า</a></li>
+                    <li><a href="#" target="_self">มาใหม่</a></li>
+                    <li><a href="#" target="_self">โปรโมชั่น</a></li>
+                    <li><a href="#" target="_self">เกียวกับ</a></li>
+                  </ul>
                 </div>
+              </div>
+              <div class="col-sm my-auto">
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" id="userid">
+                  <i class="far fa-id-card"></i>&ensp;<b>{{ user.username }}</b>
+                </a>
+                &ensp;
+                <a href="{% url 'editcart' %}" class="icon">
+                  <i class="fas fa-shopping-cart fa-lg"></i> Cart
+                </a>
+                &ensp;
+                <a href="{% url 'logout' %}" class="icon">
+                  <i class="fas fa-sign-out-alt"></i>
+                  Logout
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="icon">
+                  <i class="far fa-user fa-lg"></i> Login
+                </a>
+                {% endif %}
+                </p>
+              </div>
             </div>
+          </div>
         </nav>
-
+    
         <!-- End navbar -->
+
+
         <div class="container-fluid" id="frame">
             <div class="row">
                 <div class="col-2" id="pf-link">
@@ -113,14 +106,18 @@
                         Send Feedback
                     </a>
                 </div>
+
                 <div class="col-10">
                     <form method="POST" action="{% url 'feedback' %}">
                         {% csrf_token %}
                         <!-- {{ form.as_p }} -->
                         <div class="row">
                             <div class="col">
+                                <h1>Give us your feedback</h1>
+                                <p class="subtitle">Help us improve this website</p>
+                                <hr>
                                 <div class="form-group">
-                                    <label id="{{form.text.id_for_label}}"> {{form.text.label}} </label>
+                                    <label id="{{form.text.id_for_label}}"> Write your feedback </label>
                                     {{ form.text.errors }} {{ form.text }}
                                 </div>
                             </div>
@@ -155,71 +152,74 @@
             #logo {
                 text-decoration: none;
                 color: #2f2d2e;
-            }
-
-            #inform {
+              }
+          
+              #inform {
                 color: rgb(156, 156, 156);
-            }
-
-            .icon {
+              }
+          
+              .icon {
                 color: #2f2d2e;
                 transition: 0.1s;
-            }
-
-            .icon:hover {
+              }
+          
+              .icon:hover {
                 color: #f18f01;
-            }
-
-            #top-nav>.row {
+              }
+          
+              #top-nav>.row {
                 width: 100%;
-            }
-
-            #top-nav {
+              }
+          
+              #top-nav {
                 display: flex;
-            }
-
-            .navbar {
+              }
+          
+              .navbar {
                 padding-top: 1em;
                 margin: 2em auto;
                 display: block;
-            }
-
-            .nav-option {
+              }
+          
+              .nav-option {
                 float: left;
-            }
-
-            .nav-option>li {
+              }
+          
+              .nav-option>li {
                 list-style-type: none;
                 display: inline-block;
                 float: none;
                 padding: 0 1em;
-            }
-
-            .nav-option>li>a {
+              }
+          
+              .nav-option>li>a {
                 color: #2f2d2e;
                 text-decoration: none;
                 font-size: 1.1em;
                 transition: 0.2s;
-            }
-
-            .nav-option>li>a:hover {
+              }
+          
+              .nav-option>li>a:hover {
                 color: #f18f01;
                 text-decoration: none;
-            }
-
-            .inputText {
+              }
+          
+              .inputText {
                 border: none;
                 border-bottom: 1px solid #2f2d2e;
                 transition: 0.4s;
                 margin: 0.5em;
                 padding: 0.3em 1em;
-            }
-
-            #userid {
+              }
+          
+              #userid {
                 text-decoration: none;
-
-            }
-
+          
+              }
+              #top-nav>.row>.col-sm{
+                text-align: center;
+              }
+          
             /* end nabvar */
 
             #frame {
@@ -232,6 +232,9 @@
             .active{
                 color: #f18f01;
             }
+            .subtitle {
+                color: #7C8292;
+              }
         </style>
 
 </body>

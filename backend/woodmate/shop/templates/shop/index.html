@@ -45,15 +45,6 @@
             <a href="{% url 'profile' %}" id="userid">
               <i class="far fa-id-card"></i>&ensp;<b>{{ user.username }}</b>
             </a>
-            <!-- <a href="{% url 'address' %}" class="icon">
-              Address
-            </a>
-            <a href="{% url 'checkorder' %}" class="icon">
-              Check Order
-            </a>
-            <a href="{% url 'feedback' %}" class="icon">
-              Send Feedback
-            </a> -->
             &ensp;
             <a href="{% url 'editcart' %}" class="icon">
               <i class="fas fa-shopping-cart fa-lg"></i> Cart
@@ -161,7 +152,9 @@
       text-decoration: none;
 
     }
-
+    #top-nav>.row>.col-sm{
+      text-align: center;
+    }
     /* end nabvar */
   </style>
 
