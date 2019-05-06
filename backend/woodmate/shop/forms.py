@@ -44,10 +44,8 @@ class UserForm(forms.Form):
         if password != confirmpass:
             raise ValidationError('รหัสผ่าน และ ยืนยันรหัสผ่าน ต้องเหมือนกัน')
 
-class FeedbackModelForm(forms.ModelForm):
-    class Meta:
-        model = Feedback
-        fields = '__all__'
+class FeedbackForm(forms.Form):
+    text = forms.CharField(max_length=500)
 
 class MakeOrderForm(forms.Form):
     payment = forms.CharField(max_length=50)

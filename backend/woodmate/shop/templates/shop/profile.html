@@ -89,7 +89,7 @@
                         {{ user.username }}
                     </h2>
                     <br>
-                    <a href="{% url 'address' %}" class="icon active">
+                    <a href="{% url 'profile' %}" class="icon active">
                             <i class="fas fa-address-card"></i>
                         &ensp;
                         User info
@@ -141,7 +141,7 @@
                             <div class="col"></div>
                         </div>
                         <input type="submit" value="Save">
-                        <button type="button"> Cancel </button>
+                        <a href="{% url 'profile' %}"><button type="button"> Cancel </button></a>
                     </form>
                 </div>
             </div>

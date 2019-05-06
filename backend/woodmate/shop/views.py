@@ -89,8 +89,45 @@ def address(request):
     context = {}
     user = request.user
     customer = Customer.objects.get(user=user)
-    address = Address.objects.filter(cid = customer)
-    context['address'] = address
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            try:
+                address = Address.objects.get(cid = customer)
+                address.address_desc = request.POST.get('address_desc')
+                address.district = request.POST.get('district')
+                address.area = request.POST.get('area')
+                address.province = request.POST.get('province')
+                address.postal_code = request.POST.get('postal_code')
+                address.save()
+                return redirect('address')
+            except:
+                address = Address.objects.create(
+                    address_desc = request.POST.get('address_desc'),
+                    district = request.POST.get('district'),
+                    area = request.POST.get('area'),
+                    province = request.POST.get('province'),
+                    postal_code = request.POST.get('postal_code'),
+                    cid = customer
+                )
+                address.save()
+                return redirect('address')
+    try:
+        address = Address.objects.get(cid = customer)
+        context['address'] = address
+        data = {}
+        data['address_desc'] = address.address_desc
+        data['district'] = address.district
+        data['area'] = address.area
+        data['province'] = address.province
+        data['postal_code'] = address.postal_code
+        form = AddressForm(initial=data)
+        context['form'] = form
+        return render(request, template_name='shop/address.html', context=context)
+    except:
+        pass
+    form = AddressForm()
+    context['form'] = form
     return render(request, template_name='shop/address.html', context=context)
 
 @login_required
@@ -111,10 +148,7 @@ def add_address(request):
             )
             return redirect('address')
     else:
-        form = AddressForm()
-    
-    context['form'] = form
-    return render(request, template_name='shop/add_address.html', context=context)
+        return redirect('address')
 
 @login_required
 def del_address(request, address_id):
@@ -152,11 +186,14 @@ def edit_address(request, address_id):
 def feedback(request):
     context = {}
     if request.method == 'POST':
-        form = FeedbackModelForm(request.POST)
-        feedback = form.save()
-        return redirect('index')
+        form = FeedbackForm(request.POST)
+        feedback = Feedback.objects.create(
+            text = request.POST.get('text')
+        )
+        feedback.save()
     else:
-        form = FeedbackModelForm()
+        pass
+    form = FeedbackForm()
     context['form'] = form
     return render(request, template_name='shop/feedback.html', context=context)
 

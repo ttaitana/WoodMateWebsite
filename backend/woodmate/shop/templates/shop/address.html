@@ -1,148 +1,265 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Check Address</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
-    <body>
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <!-- Navbar -->
-    <div id="app"><nav class="navbar">
+
+<head>
+    <title>Profile page</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- for dev -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.common.dev.js"></script>
+
+    <!-- for deploy -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.common.js"></script> -->
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- Navbar -->
+    <div id="app">
+        <nav class="navbar">
             <div id="top-nav" class="container-fulid">
                 <div class="row">
-                <div class='col-sm-1'></div>
-                  <div class="col-sm my-auto">
-                      <a href="{% url 'index' %}" class="router-link-exact-active router-link-active" id="logo">
-                        <h2>WoodMate</h2></a>
+                    <div class="col-sm my-auto">
+                        <a href="{% url 'index' %}" class="router-link-exact-active router-link-active" id="logo">
+                            <h2>WoodMate</h2>
+                        </a>
                     </div>
                     <div class="col-sm my-auto">
                         <div class="container-fulid">
-                            <ul class="nav-option">
-                                <li><a href="#" target="_self">สินค้า</a></li> 
-                                <li><a href="#" target="_self">มาใหม่</a></li> 
-                                <li><a href="#" target="_self">โปรโมชั่น</a></li> 
-                                <li><a href="#" target="_self">เกียวกับ</a></li>
-                            </ul>
+                            <p><i id="searchIcon" class="fas fa-search"></i>
+                                <input type="text" placeholder="Search.." name="search" class="inputText">
+                                <br>
+                                <ul class="nav-option">
+                                    <li><a href="#" target="_self">สินค้า</a></li>
+                                    <li><a href="#" target="_self">มาใหม่</a></li>
+                                    <li><a href="#" target="_self">โปรโมชั่น</a></li>
+                                    <li><a href="#" target="_self">เกียวกับ</a></li>
+                                </ul>
                         </div>
-                    </div> 
+                    </div>
                     <div class="col-sm my-auto">
-                        <p><i id="searchIcon" class="fas fa-search"></i>
-                            <input type="text" placeholder="Search.." name="search" class="inputText"> 
-                            {% if user.is_authenticated %}
-                            <a href="{% url 'editcart' %}" class="icon">
-                                <i class="fas fa-shopping-cart fa-lg"></i>
-                            </a>
-                            <a href="{% url 'address' %}" class="icon">
-                                Address
-                            </a>
-                            <a href="{% url 'checkorder' %}" class="icon">
-                                Check Order
-                            </a>
-                            <a href="{% url 'feedback' %}" class="icon">
-                                Send Feedback
-                            </a>
-                            <a href="{% url 'logout' %}" class="icon">
-                                Logout
-                            </a>
-                            {% else %}
-                            <a href="{% url 'login' %}" class="icon">
-                              <i class="far fa-user fa-lg"></i> Login
-                            </a>
-                            {% endif %}
+                        {% if user.is_authenticated %}
+                        <a href="#" id="userid">
+                            <i class="far fa-id-card"></i>&ensp;<b>{{ user.username }}</b>
+                        </a>
+                        <!-- <a href="{% url 'address' %}" class="icon">
+              Address
+            </a>
+            <a href="{% url 'checkorder' %}" class="icon">
+              Check Order
+            </a>
+            <a href="{% url 'feedback' %}" class="icon">
+              Send Feedback
+            </a> -->
+                        <a href="{% url 'editcart' %}" class="icon">
+                            <i class="fas fa-shopping-cart fa-lg"></i> Cart
+                        </a>
+                        <a href="{% url 'logout' %}" class="icon">
+                            Logout
+                        </a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="icon">
+                            <i class="far fa-user fa-lg"></i> Login
+                        </a>
+                        {% endif %}
                         </p>
                     </div>
                 </div>
             </div>
         </nav>
-    
+
         <!-- End navbar -->
-        <table border=1>
-            <tr>
-                <td>รายละเอียดที่อยู่</td>
-                <td>แขวง</td>
-                <td>เขต</td>
-                <td>จังหวัด</td>
-                <td>รหัสไปรสณีย์</td>
-            </tr>
-            {% for a in address %}
-            <tr>
-                <td>{{ a.address_desc }}</td>
-                <td>{{ a.district }}</td>
-                <td>{{ a.area }}</td>
-                <td>{{ a.province }}</td>
-                <td>{{ a.postal_code }}</td>
-                <td><a href="{% url 'edit_address' address_id=a.address_id %}">Edit</a></td>
-                <td><a href="{% url 'del_address' address_id=a.address_id %}">Del</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-        {% if address %}
-        <a href="{% url 'profile' %}">Back</a>
-        {% else %}
-        <a href="{% url 'add_address' %}">Add Address</a>
-        <br>
-        <a href="{% url 'profile' %}">Back</a>
-        {% endif %}
-    
+        <div class="container-fluid" id="frame">
+            <div class="row">
+                <div class="col-2" id="pf-link">
+                    <h2>
+                        <i class="fas fa-user"></i>
+                        {{ user.username }}
+                    </h2>
+                    <br>
+                    <a href="{% url 'profile' %}" class="icon">
+                            <i class="fas fa-address-card"></i>
+                        &ensp;
+                        User info
+                    </a>
+                    <hr>
+                    <a href="{% url 'address' %}" class="icon active">
+                            <i class="fas fa-map-marked-alt"></i>
+                            &ensp;
+                        Address
+                    </a>
+                    <hr>
+                    <a href="{% url 'checkorder' %}" class="icon">
+                            <i class="fas fa-box"></i>
+                            &ensp;
+                        Check Order
+                    </a>
+                    <hr>
+                    <a href="{% url 'feedback' %}" class="icon">
+                            <i class="fas fa-comment-dots"></i>
+                            &ensp;
+                        Send Feedback
+                    </a>
+                </div>
+                <div class="col-10">
+                    <form method="POST" action="{% url 'address' %}">
+                        {% csrf_token %}
+                        <!-- {{ form.as_p }} -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label id="{{form.address_desc.id_for_label}}"> {{form.address_desc.label}} </label>
+                                    {{ form.address_desc.errors }} {{ form.address_desc }}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label id="{{form.district.id_for_label}}"> {{form.district.label}} </label>
+                                    {{ form.district.errors }} {{ form.district }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label id="{{form.area.id_for_label}}"> {{form.area.label}} </label>
+                                    {{ form.area.errors }} {{ form.area }}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label id="{{form.province.id_for_label}}"> {{form.province.label}} </label>
+                                    {{ form.province.errors }} {{ form.province }}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label id="{{form.postal_code.id_for_label}}"> {{form.postal_code.label}} </label>
+                                    {{ form.postal_code.errors }} {{ form.postal_code }}
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" value="Save">
+                        <a href="{% url 'address' %}"><button type="button"> Cancel </button></a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- -------------------------------------------------------------------------------------------------- -->
+        <script>
+            export default {
+                name: 'App',
+                components: {},
+                data() {
+                    return {
+                        som: 'Hello'
+                    }
+                },
+                mounted() {
+
+                }
+            }
+        </script>
+
         <style>
-                /* nabvar */
-              #logo {
+            /* nabvar */
+            #logo {
                 text-decoration: none;
                 color: #2f2d2e;
-              }
-              #inform {
+            }
+
+            #inform {
                 color: rgb(156, 156, 156);
-              }
-              .icon {
+            }
+
+            .icon {
                 color: #2f2d2e;
                 transition: 0.1s;
-              }
-              .icon:hover {
+            }
+
+            .icon:hover {
                 color: #f18f01;
-              }
-              #top-nav>.row {
+            }
+
+            #top-nav>.row {
                 width: 100%;
-              }
-              #top-nav {
+            }
+
+            #top-nav {
                 display: flex;
-              }
-              .navbar {
+            }
+
+            .navbar {
                 padding-top: 1em;
                 margin: 2em auto;
                 display: block;
-              }
-              .nav-option {
+            }
+
+            .nav-option {
                 float: left;
-              }
-              
-              .nav-option > li {
+            }
+
+            .nav-option>li {
                 list-style-type: none;
                 display: inline-block;
                 float: none;
                 padding: 0 1em;
-              }
-              .nav-option > li > a {
+            }
+
+            .nav-option>li>a {
                 color: #2f2d2e;
                 text-decoration: none;
                 font-size: 1.1em;
                 transition: 0.2s;
-              }
-              .nav-option > li > a:hover {
+            }
+
+            .nav-option>li>a:hover {
                 color: #f18f01;
-              }
-              .inputText {
+                text-decoration: none;
+            }
+
+            .inputText {
                 border: none;
                 border-bottom: 1px solid #2f2d2e;
                 transition: 0.4s;
                 margin: 0.5em;
                 padding: 0.3em 1em;
-              }
-              /* end nabvar */
-              </style>
+            }
 
-    </body>
+            #userid {
+                text-decoration: none;
+
+            }
+
+            /* end nabvar */
+
+            #frame {
+                padding: 0 3em;
+                width: 90vw;
+            }
+            #pf-link > a{
+                text-decoration: none;
+            }
+            .active{
+                color: #f18f01;
+            }
+        </style>
+
+</body>
+
 </html>
