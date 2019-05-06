@@ -303,3 +303,21 @@ def orderDetails(request, order_id):
     context['orderlist'] = orderlist
     context['order'] = order
     return render(request, template_name='shop/order_details.html', context=context)
+
+@login_required
+def myProfile(request):
+    context = {}
+    customer = Customer.objects.get(user=request.user)
+    if request.method == 'POST':
+        customer.first_name = request.POST.get('first_name')
+        customer.last_name = request.POST.get('last_name')
+        customer.phone_number = request.POST.get('phone_number')
+        customer.save()
+    data = {}
+    data['first_name'] = customer.first_name
+    data['last_name'] = customer.last_name
+    data['phone_number'] = customer.phone_number
+    form = CustomerForm(initial=data)
+    context['form'] = form
+    context['customer'] = customer
+    return render(request, template_name='shop/profile.html', context=context)

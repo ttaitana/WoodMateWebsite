@@ -23,5 +23,6 @@ urlpatterns = [
     path('makeOrder/', views.makeOrder, name='makeorder'),
     path('checkOrder/', views.checkOrder, name='checkorder'),
     path('orderDetails/<int:order_id>', views.orderDetails, name='orderdetails'),
-
+    path('profile/', views.myProfile, name='profile'),
+    
 ]

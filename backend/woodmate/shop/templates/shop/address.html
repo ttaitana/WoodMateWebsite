@@ -81,11 +81,11 @@
             {% endfor %}
         </table>
         {% if address %}
-        <a href="{% url 'index' %}">Back to Home Page</a>
+        <a href="{% url 'profile' %}">Back</a>
         {% else %}
         <a href="{% url 'add_address' %}">Add Address</a>
         <br>
-        <a href="{% url 'index' %}">Back to Home Page</a>
+        <a href="{% url 'profile' %}">Back</a>
         {% endif %}
     
         <style>
