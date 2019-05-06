@@ -239,10 +239,31 @@ def addToCart(request, product_id):
     return redirect('viewitems', type_id=0)
 
 def editCart(request):
+    context = {}
     customer = Customer.objects.get(user=request.user)
     cart = Cart.objects.filter(cid=customer)
-    context = {}
+    try:
+        address = Address.objects.get(cid = customer)
+    except:
+        return redirect('add_address')
+    address = Address.objects.get(cid = customer)
+    totalprice = 0
+    totalunit = 0
+    for c in cart:
+        product = c.pid
+        price = product.price * c.unit
+        totalprice += price
+        c.price = price
+        c.image = product.product_pic
+        totalunit += c.unit
+    today = datetime.datetime.now().date()
+    form = MakeOrderForm(initial={'date': today, 'status': 'Waiting'})
     context['cart'] = cart
+    context['address'] = address
+    context['totalprice'] = totalprice
+    context['totalunit'] = totalunit
+    context['pricewithdeli'] = totalprice + 250
+    context['form'] = form
     return render(request, template_name='shop/edit_cart.html', context=context)
 
 def plusUnit(request, cart_id):
@@ -307,10 +328,11 @@ def makeOrder(request):
                 )
                 product.save()
                 c.delete()
+            totalprice += 250
             order.total_price = totalprice
             order.save()
 
-            return redirect('index')
+            return redirect('checkorder')
     totalprice = 0
     for c in cart:
         product = c.pid

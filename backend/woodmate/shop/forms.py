@@ -77,3 +77,7 @@ class MakeOrderForm(forms.Form):
     payment = forms.CharField(max_length=50)
     status = forms.CharField(max_length=30, widget=forms.HiddenInput)
     date = forms.DateField(widget=forms.HiddenInput)
+
+    payment.widget.attrs.update({
+        'class': 'form-control'
+    })

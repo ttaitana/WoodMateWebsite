@@ -79,11 +79,11 @@
             {% for c in cart %}
             <tr>
               <td>
-                <img src="https://gamepedia.cursecdn.com/arksurvivalevolved_gamepedia/d/df/Wood.png" alt="">
+                <img src="/media/{{ c.image }}" alt="">
                 {{ c.pid }}
               </td>
               <td>
-                ใส่ราคาด้วย ฿
+                {{ c.price }} ฿
                 <!-- (ตัวแปล number).toLocaleString() เพิ่มคอมม่า "1,000" แต่ไม่รู้ django ทำได้ป่าวเพราะมันคือ Js  -->
               </td>
               <td>{{ c.unit }}</td>
@@ -102,7 +102,8 @@
           <p>
             <i class="fas fa-map-marker-alt subtitle"></i>
             <span>
-              ที่อยู่ หามาใส่ที
+              {{ address.address_desc }} {{ address.district }} {{ address.area }} {{ address.province }}
+              {{ address.postal_code }}
             </span>
           </p>
           <hr>
@@ -111,30 +112,41 @@
           </p>
           <div class="row">
             <div class="col">
-              <p class="subtitle" style="float:left">ยอดรวม (จำนวน <span>xxx</span> ชิ้น)</p>
+              <p class="subtitle" style="float:left">ยอดรวม (จำนวน <span>{{ totalunit }}</span> ชิ้น)</p>
             </div>
             <div class="col">
-              <p style="float:right"><b> x,xxx ฿ </b></p>
+              <p style="float:right"><b> {{ totalprice }} ฿ </b></p>
             </div>
           </div>
           <div class="row">
-              <div class="col">
-                <p class="subtitle" style="float:left">ค่าจัดส่ง</p>
-              </div>
-              <div class="col">
-                <p style="float:right"><b> x,xxx ฿ </b></p>
-              </div>
+            <div class="col">
+              <p class="subtitle" style="float:left">ค่าจัดส่ง</p>
             </div>
-            <hr>
-            <div class="row">
-                <div class="col">
-                  <p class="subtitle" style="float:left">ยอดรวมทั้งสิ้น</p>
-                </div>
-                <div class="col">
-                  <p style="float:right; color:#f18f01; font-size:1.1em;"><b> x,xxx ฿ </b></p>
-                </div>
+            <div class="col">
+              <p style="float:right"><b> 250 ฿ </b></p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col">
+              <p class="subtitle" style="float:left">ยอดรวมทั้งสิ้น</p>
+            </div>
+            <div class="col">
+              <p style="float:right; color:#f18f01; font-size:1.1em;"><b> {{ pricewithdeli }} ฿ </b></p>
+            </div>
+          </div>
+          <div class='form'>
+            <form method='POST' action="{% url 'makeorder' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                <label id="{{form.payment.id_for_label}}"> Payment </label>
+                {{ form.payment.errors }} {{ form.payment }}
               </div>
-          <a href="{% url 'makeorder' %}" class="btn btn-warning btn-lg btn-block">Make Order</a>
+              {{ form.status }}
+              {{ form.date }}
+              <button type='submit' class="btn btn-warning btn-lg btn-block">Make Order</a>
+            </form>
+          </div>
           <br>
           <a href="{% url 'index' %}" id="goback"><i class="fas fa-arrow-left"></i> &ensp; Go shopping</a>
         </div>
@@ -238,17 +250,20 @@
       .title {
         font-size: 1.2em;
       }
-      .btn{
+
+      .btn {
         border-radius: 0;
       }
-      #goback{
+
+      #goback {
         text-decoration: none;
-        color: #33658A; 
+        color: #33658A;
         transition: .2s;
         font-size: 1.1em;
         font-weight: bold;
       }
-      #goback:hover{
+
+      #goback:hover {
         color: #f18f01;
       }
     </style>
