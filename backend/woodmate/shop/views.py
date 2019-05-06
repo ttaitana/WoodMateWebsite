@@ -170,9 +170,6 @@ def viewAllItem(request, type_id):
         items = Product.objects.all()
     context['item'] = items
     context['types'] = types
-    for i in items:
-        print('1')
-        print(i.product_name)
     return render(request, template_name='shop/view_items.html', context=context)
 
 def itemDetails(request, product_id):
@@ -183,20 +180,24 @@ def itemDetails(request, product_id):
 
 @login_required
 def addToCart(request, product_id):
+    number = request.POST.get('number')
+    number = int(number)
+    if number <= 0:
+        return redirect('viewitems', type_id=0)
     product = Product.objects.get(product_id=product_id)
     customer = Customer.objects.get(user=request.user)
     try:
         print(Cart.objects.get(pid=product, cid=customer))
         cart = Cart.objects.get(pid=product, cid=customer)
         unit = cart.unit
-        unit += 1
+        unit += number
         cart.unit = unit
         cart.save()
     except:
         cart = Cart.objects.create(
             cid = customer,
             pid = product,
-            unit = 1
+            unit = number
         )
     return redirect('viewitems', type_id=0)
 

@@ -122,6 +122,13 @@
                         <p style="margin-bottom:.2em">
                             <b>ประเภท</b>
                         </p>
+                        <ul class="filter-list">
+                            <li class="filter-items">
+                                <a href="{% url 'viewitems' type_id=0 %}">
+                                    <span>All</span>
+                                </a>
+                            </li>
+                        </ul>
                         {% for t in types %}
                         <ul class="filter-list">
                             <li class="filter-items">
@@ -152,15 +159,17 @@
                                             {{ i.product_desc }}
                                         </p>
                                         <br>
+                                        <form method="POST" action="{% url 'addtocart' product_id=i.product_id %}">
+                                        {% csrf_token %}
                                         <div class="form-group row">
                                             <label for="amount" class="col-3 col-form-label">จำนวน</label>
                                             <input type="number" min="0" :max="p.stock" value="0" class="form-control"
-                                                style="width: 5em;">
+                                                style="width: 5em;" name="number">
                                         </div>
                                         <br>
-                                        <button type="button" class="button">เพิ่มสินค้าลงตะกร้า
+                                        <button type="submit" class="button">เพิ่มสินค้าลงตะกร้า
                                             &ensp;
-                                            <i class="fas fa-arrow-right"></i></button>
+                                            <i class="fas fa-arrow-right"></i></button></form>
                                     </div>
                                 </div>
                             </div>
