@@ -8,6 +8,12 @@
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- for dev -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.common.dev.js"></script>
+
+    <!-- for deploy -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.common.js"></script> -->
 </head>
 
 <body>
@@ -75,21 +81,89 @@
         </nav>
 
         <!-- End navbar -->
+        <div class="container-fluid" id="frame">
+            <div class="row">
+                <div class="col-2" id="pf-link">
+                    <h2>
+                        <i class="fas fa-user"></i>
+                        {{ user.username }}
+                    </h2>
+                    <br>
+                    <a href="{% url 'address' %}" class="icon active">
+                            <i class="fas fa-address-card"></i>
+                        &ensp;
+                        User info
+                    </a>
+                    <hr>
+                    <a href="{% url 'address' %}" class="icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                            &ensp;
+                        Address
+                    </a>
+                    <hr>
+                    <a href="{% url 'checkorder' %}" class="icon">
+                            <i class="fas fa-box"></i>
+                            &ensp;
+                        Check Order
+                    </a>
+                    <hr>
+                    <a href="{% url 'feedback' %}" class="icon">
+                            <i class="fas fa-comment-dots"></i>
+                            &ensp;
+                        Send Feedback
+                    </a>
+                </div>
+                <div class="col-10">
+                    <form method="POST" action="{% url 'profile' %}">
+                        {% csrf_token %}
+                        <!-- {{ form.as_p }} -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label id="{{form.first_name.id_for_label}}"> {{form.first_name.label}} </label>
+                                    {{ form.first_name.errors }} {{ form.first_name }}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label id="{{form.last_name.id_for_label}}"> {{form.last_name.label}} </label>
+                                    {{ form.last_name.errors }} {{ form.last_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label id="{{form.phone_number.id_for_label}}"> {{form.phone_number.label}} </label>
+                                    {{ form.phone_number.errors }} {{ form.phone_number }}
+                                </div>
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                        <input type="submit" value="Save">
+                        <button type="button"> Cancel </button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-        <a href="{% url 'address' %}" class="icon">
-            Address
-        </a><hr>
-        <a href="{% url 'checkorder' %}" class="icon">
-            Check Order
-        </a><hr>
-        <a href="{% url 'feedback' %}" class="icon">
-            Send Feedback
-        </a>
-        <form method="POST" action="{% url 'profile' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Save">
-        </form>
+
+
+        <!-- -------------------------------------------------------------------------------------------------- -->
+        <script>
+            export default {
+                name: 'App',
+                components: {},
+                data() {
+                    return {
+                        som: 'Hello'
+                    }
+                },
+                mounted() {
+
+                }
+            }
+        </script>
 
         <style>
             /* nabvar */
@@ -162,6 +236,17 @@
             }
 
             /* end nabvar */
+
+            #frame {
+                padding: 0 3em;
+                width: 90vw;
+            }
+            #pf-link > a{
+                text-decoration: none;
+            }
+            .active{
+                color: #f18f01;
+            }
         </style>
 
 </body>
