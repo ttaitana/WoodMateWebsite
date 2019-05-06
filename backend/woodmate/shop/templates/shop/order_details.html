@@ -72,28 +72,31 @@
         </nav>
 
         <!-- End navbar -->
-        <table border=1>
-            <tr>
-                <td>Product Name</td>
-                <td>Unit</td>
-                <td>Price Per Each</td>
-                <td>Total Price</td>
-            </tr>
-            {% for ol in orderlist %}
-            <tr>
-                <td>{{ ol.product }}</td>
-                <td>{{ ol.unit }}</td>
-                <td>{{ ol.price }}</td>
-                <td>{{ ol.total_price }}</td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td colspan="3">Total</td>
-                <td>{{ order.total_price }}</td>
-            </tr>
-        </table>
-        <a href="{% url 'checkorder' %}">Go back</a>
-
+        <div class="container-fluid" id="frame">
+            <a href="{% url 'checkorder' %}" id="goback"><i class="fas fa-arrow-left"></i> Back to profile</a>
+            <h1>Order details</h1>
+            <p class="subtitle">Detail about your orders</p>
+            <table class="table">
+                <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Price Per Each</th>
+                    <th scope="col">Total Price</th>
+                </tr>
+                {% for ol in orderlist %}
+                <tr>
+                    <td scope="row">{{ ol.product }}</td>
+                    <td>{{ ol.unit }}</td>
+                    <td>{{ ol.price }}</td>
+                    <td>{{ ol.total_price }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th colspan="3"> Total</th>
+                    <th style="color:#f18f01;">{{ order.total_price }} ฿</th>
+                </tr>
+            </table>
+        </div>
         <style>
             /* nabvar */
             #logo {
@@ -159,6 +162,20 @@
             }
 
             /* end nabvar */
+            #frame {
+                width: 90vw;
+            }
+
+            .subtitle {
+                color: #7C8292;
+            }
+            #goback{
+                color: #2f2d2e;
+                text-decoration: none;
+            }
+            #goback:hover{
+                color: #7C8292;
+            }
         </style>
 </body>
 
