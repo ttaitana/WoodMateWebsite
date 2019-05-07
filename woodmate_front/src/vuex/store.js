@@ -66,8 +66,6 @@ const mutations = {
     // }else{
     //   state.cart.set(item.item.product_id, {'item':item.item, 'amount':Number(item.amount)})
     // }
-
-
     let amt = 0
     function logMapElements(value, key, map) {
       amt += value.amount;
