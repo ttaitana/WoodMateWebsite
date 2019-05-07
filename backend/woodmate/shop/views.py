@@ -262,7 +262,10 @@ def editCart(request):
     context['address'] = address
     context['totalprice'] = totalprice
     context['totalunit'] = totalunit
-    context['pricewithdeli'] = totalprice + 250
+    if(len(cart) > 0):
+        context['pricewithdeli'] = totalprice + 250
+    else:
+        context['pricewithdeli'] = totalprice
     context['form'] = form
     return render(request, template_name='shop/edit_cart.html', context=context)
 
