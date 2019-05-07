@@ -575,6 +575,7 @@ def viewAllItem(request, type_id):
         items = Product.objects.filter(product_type=gettype)
     else:
         items = Product.objects.all()
+    context['typed'] = type_id
     context['item'] = items
     context['types'] = types
     return render(request, template_name='shop/view_items.html', context=context)

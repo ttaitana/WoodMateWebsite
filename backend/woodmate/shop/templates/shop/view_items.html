@@ -112,22 +112,36 @@
                     <p style="margin-bottom:.2em">
                         <b>ประเภท</b>
                     </p>
-                    <ul class="filter-list">
-                        <li class="filter-items">
-                            <a href="{% url 'viewitems' type_id=0 %}">
-                                <span>All</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <ul class="filter-list list-group">
+                        <!--<li class="filter-items">-->
+                        {% if typed == 0 %}
+                        <a href="{% url 'viewitems' type_id=0 %}" class="list-group-item list-group-item-action active">
+                            <span>ทั้งหมด</span>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'viewitems' type_id=0 %}" class="list-group-item list-group-item-action">
+                            <span>ทั้งหมด</span>
+                        </a>
+                        {% endif %}
+                        <!--</li>-->
+                    <!--</ul>-->
                     {% for t in types %}
-                    <ul class="filter-list">
-                        <li class="filter-items">
-                            <a href="{% url 'viewitems' type_id=t.ptype_id %}">
-                                <span>{{ t.ptype_name }}</span>
-                            </a>
-                        </li>
+                    <!--<ul class="filter-list list-group">-->
+                        <!--<li class="filter-items list-group-item list-group-item-action">-->
+                        {% if typed == t.ptype_id %}
+                        <a href="{% url 'viewitems' type_id=t.ptype_id %}"
+                           class="list-group-item list-group-item-action active">
+                            <span>{{ t.ptype_name }}</span>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'viewitems' type_id=t.ptype_id %}"
+                           class="list-group-item list-group-item-action">
+                            <span>{{ t.ptype_name }}</span>
+                        </a>
+                        {% endif %}
+                        <!--</li>-->
+                        {% endfor %}
                     </ul>
-                    {% endfor %}
                 </div>
             </div>
             <div class="col">
@@ -166,9 +180,9 @@
                                             <i class="fas fa-arrow-right"></i></button>
                                         {% else %}
                                         <button type="submit" class="button">
-                                                เพิ่มสินค้าลงตะกร้า
-                                                &ensp;
-                                                <i class="fas fa-arrow-right"></i></button>
+                                            เพิ่มสินค้าลงตะกร้า
+                                            &ensp;
+                                            <i class="fas fa-arrow-right"></i></button>
                                         {% endif %}
                                     </form>
                                 </div>
