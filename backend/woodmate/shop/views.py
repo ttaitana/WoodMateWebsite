@@ -469,7 +469,6 @@ def address(request):
         pass
     form = AddressForm()
     context['form'] = form
-    context['address'] = address
     return render(request, template_name='shop/address.html', context=context)
 
 

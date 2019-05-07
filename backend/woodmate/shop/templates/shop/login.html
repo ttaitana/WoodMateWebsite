@@ -17,7 +17,7 @@
                  <div class="col-sm-6">
                     <div id="authen-form" class="container">
                         <h1>Login</h1>
-                        <div class="choice">
+                        <!-- <div class="choice">
                             <button id="facebook">
                                 <i class="fab fa-facebook-f"></i>
                                 | Login with Facebook account
@@ -28,25 +28,27 @@
                             </button>
                         </div> 
                         <p>- OR -</p>
-                        <br>
-                        {% if error %}
-                          <span style="color: red;">{{ error }}</span>
-                        {% endif %}
+                        <br> -->
                         <form method="POST" action="{% url 'login' %}">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="username"><b> Username </b></label>
-                                <input type="text" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" name="username" class="form-control">
+                                <input type="text" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username" name="username" class="form-control">
                             </div> 
                             <div class="form-group">
                                 <label for="password"><b> Password </b></label>
                                 <input type="password" id="exampleInputPassword1" placeholder="Password" name="password" class="form-control"></div>
+
+                                {% if error %}
+                                    <p style="color: red;text-align: left">{{ error }}</p>
+                                  {% endif %} 
                                 <div class="form-group form-check"><span id="remember">
                                 <input type="checkbox" id="exampleCheck1" class="form-check-input">
                                 <label for="exampleCheck1" class="form-check-label">Remember me</label>
                             </span>
                             <a href="/" class="router-link-active" id="forget">Forgot Password?</a>
-                        </div> 
+                        </div>
+                        
                         <br> 
                         <button type="submit" id="submit" class="btn btn-primary btn-block">Login</button>
                     </form> 
