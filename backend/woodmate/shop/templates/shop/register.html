@@ -62,7 +62,10 @@
                       {{ user.confirmpass }}
                     </div>
                 {% if form.non_field_errors %}
-                <div class="form-group">{{ form.non_field_errors }}</div>
+                <span style="color: red;">{{ form.non_field_errors }}</span>
+                {% endif %}
+                {% if user.non_field_errors %}
+                <span style="color: red;">{{ user.non_field_errors }}</span>
                 {% endif %}
                 <button type="submit" class="btn btn-primary btn-block" id="submit">Register</button>
               </form>
@@ -71,7 +74,7 @@
                   Already have an account? &ensp;
                   <a href="{% url 'login' %}">
                     <button type="button" class="btn btn-outline-info">Login</button>
-                  </a>>
+                  </a>
                 </p>
               </div>
             </div>

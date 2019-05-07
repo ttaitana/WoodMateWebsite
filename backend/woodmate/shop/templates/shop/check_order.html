@@ -28,50 +28,50 @@
     crossorigin="anonymous"></script>
   <!-- Navbar -->
   <div id="app">
-      <nav class="navbar">
-        <div id="top-nav" class="container-fulid">
-          <div class="row">
-            <div class="col-sm my-auto">
-              <a href="{% url 'index' %}" class="router-link-exact-active router-link-active" id="logo">
-                <h2>WoodMate</h2>
-              </a>
+    <nav class="navbar">
+      <div id="top-nav" class="container-fulid">
+        <div class="row">
+          <div class="col-sm my-auto">
+            <a href="{% url 'index' %}" class="router-link-exact-active router-link-active" id="logo">
+              <h2>WoodMate</h2>
+            </a>
+          </div>
+          <!-- <div class="col-sm my-auto">
+            <div class="container-fulid">
+              <ul class="nav-option">
+                <li><a href="#" target="_self">สินค้า</a></li>
+                <li><a href="#" target="_self">มาใหม่</a></li>
+                <li><a href="#" target="_self">โปรโมชั่น</a></li>
+                <li><a href="#" target="_self">เกียวกับ</a></li>
+              </ul>
             </div>
-            <div class="col-sm my-auto">
-              <div class="container-fulid">
-                <ul class="nav-option">
-                  <li><a href="#" target="_self">สินค้า</a></li>
-                  <li><a href="#" target="_self">มาใหม่</a></li>
-                  <li><a href="#" target="_self">โปรโมชั่น</a></li>
-                  <li><a href="#" target="_self">เกียวกับ</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-sm my-auto">
-              {% if user.is_authenticated %}
-              <a href="{% url 'profile' %}" id="userid">
-                <i class="far fa-id-card"></i>&ensp;<b>{{ user.username }}</b>
-              </a>
-              &ensp;
-              <a href="{% url 'editcart' %}" class="icon">
-                <i class="fas fa-shopping-cart fa-lg"></i> Cart
-              </a>
-              &ensp;
-              <a href="{% url 'logout' %}" class="icon">
-                <i class="fas fa-sign-out-alt"></i>
-                Logout
-              </a>
-              {% else %}
-              <a href="{% url 'login' %}" class="icon">
-                <i class="far fa-user fa-lg"></i> Login
-              </a>
-              {% endif %}
-              </p>
-            </div>
+          </div> -->
+          <div class="col-sm my-auto" id="itemnav">
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" id="userid">
+              <i class="far fa-id-card"></i>&ensp;<b>{{ user.username }}</b>
+            </a>
+            &ensp;
+            <a href="{% url 'editcart' %}" class="icon">
+              <i class="fas fa-shopping-cart fa-lg"></i> Cart{% if numofproduct %}({{ numofproduct }}){% endif %}
+            </a>
+            &ensp;
+            <a href="{% url 'logout' %}" class="icon">
+              <i class="fas fa-sign-out-alt"></i>
+              Logout
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}" class="icon">
+              <i class="far fa-user fa-lg"></i> Login
+            </a>
+            {% endif %}
+            </p>
           </div>
         </div>
-      </nav>
-  
-      <!-- End navbar -->
+      </div>
+    </nav>
+
+    <!-- End navbar -->
 
 
     <div class="container-fluid" id="frame">
@@ -110,24 +110,24 @@
         <div class="col-10">
           <h1>Order status and History</h1>
           <p class="subtitle">Check your order status and see your order history</p>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Orders</td>
-                    <th scope="col">Status</td>
-                    <th scope="col">Date</td>
-                </tr>
-                </thead>
-                <tbody>
-                {% for o in order %}
-                <tr>
-                    <td scope="row"><a href="{% url 'orderdetails' order_id=o.oid %}">Details</a></td>
-                    <td>{{ o.status }}</td>
-                    <td>{{ o.date }}</td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Orders</td>
+                <th scope="col">Status</td>
+                <th scope="col">Date</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for o in order %}
+              <tr>
+                <td scope="row"><a href="{% url 'orderdetails' order_id=o.oid %}">Details</a></td>
+                <td>{{ o.status }}</td>
+                <td>{{ o.date }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -156,57 +156,57 @@
         text-decoration: none;
         color: #2f2d2e;
       }
-  
+
       #inform {
         color: rgb(156, 156, 156);
       }
-  
+
       .icon {
         color: #2f2d2e;
         transition: 0.1s;
       }
-  
+
       .icon:hover {
         color: #f18f01;
       }
-  
+
       #top-nav>.row {
         width: 100%;
       }
-  
+
       #top-nav {
         display: flex;
       }
-  
+
       .navbar {
         padding-top: 1em;
         margin: 2em auto;
         display: block;
       }
-  
+
       .nav-option {
         float: left;
       }
-  
+
       .nav-option>li {
         list-style-type: none;
         display: inline-block;
         float: none;
         padding: 0 1em;
       }
-  
+
       .nav-option>li>a {
         color: #2f2d2e;
         text-decoration: none;
         font-size: 1.1em;
         transition: 0.2s;
       }
-  
+
       .nav-option>li>a:hover {
         color: #f18f01;
         text-decoration: none;
       }
-  
+
       .inputText {
         border: none;
         border-bottom: 1px solid #2f2d2e;
@@ -214,15 +214,20 @@
         margin: 0.5em;
         padding: 0.3em 1em;
       }
-  
+
       #userid {
         text-decoration: none;
-  
+
       }
-      #top-nav>.row>.col-sm{
+
+      #top-nav>.row>.col-sm {
         text-align: center;
       }
-  
+
+      #itemnav>a {
+        padding: 0 .5em;
+      }
+
       /* end nabvar */
 
       #frame {
@@ -232,11 +237,15 @@
 
       #pf-link>a {
         text-decoration: none;
+        padding-left: 2.5em;
       }
 
       .active {
         color: #f18f01;
       }
+
+      .active::after {}
+
       .subtitle {
         color: #7C8292;
       }

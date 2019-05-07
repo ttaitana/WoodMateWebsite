@@ -47,7 +47,7 @@
             </a>
             &ensp;
             <a href="{% url 'editcart' %}" class="icon">
-              <i class="fas fa-shopping-cart fa-lg"></i> Cart
+              <i class="fas fa-shopping-cart fa-lg"></i> Cart{% if numofproduct %}({{ numofproduct }}){% endif %}
             </a>
             &ensp;
             <a href="{% url 'logout' %}" class="icon">

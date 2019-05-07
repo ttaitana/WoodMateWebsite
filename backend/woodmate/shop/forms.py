@@ -15,7 +15,15 @@ class CustomerForm(forms.Form):
     last_name.widget.attrs.update(
         {'class': 'form-control', 'placeholder': 'Last Name'})
     phone_number.widget.attrs.update(
-        {'class': 'form-control', 'placeholder': 'eg. 089-147-xxxx'})
+        {'class': 'form-control', 'placeholder': 'eg. 089147xxxx'})
+
+    def clean(self):
+        cleaned_data = super().clean()
+        phone_number = cleaned_data.get('phone_number')
+        if phone_number.isdigit():
+            pass
+        else:
+            raise ValidationError('เบอร์โทรศัพท์ต้องเป็นตัวเลขเท่านั้น')
 
 
 class AddressForm(forms.Form):
@@ -61,6 +69,8 @@ class UserForm(forms.Form):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         confirmpass = cleaned_data.get('confirmpass')
+        if len(str(password)) < 8:
+            raise ValidationError('รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร')
         if password != confirmpass:
             raise ValidationError('รหัสผ่าน และ ยืนยันรหัสผ่าน ต้องเหมือนกัน')
 
@@ -74,10 +84,20 @@ class FeedbackForm(forms.Form):
 
 
 class MakeOrderForm(forms.Form):
-    payment = forms.CharField(max_length=50)
+    cash = 'เงินสด'
+    credit = 'CreditCard'
+    debit = 'DebitCard'
+    payment_choice = {
+        (cash, 'เงินสด'),
+        (credit, 'Credit Card'),
+        (debit, 'Debit Card')
+    }
+    payment = forms.ChoiceField(widget=forms.RadioSelect, required=True, choices=payment_choice)
     status = forms.CharField(max_length=30, widget=forms.HiddenInput)
     date = forms.DateField(widget=forms.HiddenInput)
 
-    payment.widget.attrs.update({
-        'class': 'form-control'
-    })
+    def clean(self):
+        cleaned_data = super().clean()
+        payment = cleaned_data.get('payment')
+        if len(payment) <= 0:
+            raise ValidationError('กรุณาระบุวิธีการจ่ายเงิน')

@@ -318,8 +318,22 @@ province = [
         "name": "นราธิวาส"
       }
 ]
+
 def index(request):
-    return render(request, template_name='shop/index.html')
+    context = {}
+    check = 0
+    try:
+      customer = Customer.objects.get(user = request.user)
+    except:
+      check = 1
+    if check == 0 :
+      customer = Customer.objects.get(user = request.user)
+      cart = Cart.objects.filter(cid = customer)
+      num = 0
+      for c in cart:
+        num += c.unit
+      context['numofproduct'] = num
+    return render(request, template_name='shop/index.html', context=context)
 
 def register(request):
     context = {}
@@ -397,6 +411,18 @@ def my_logout(request):
 @login_required
 def address(request):
     context = {}
+    check = 0
+    try:
+      customer = Customer.objects.get(user = request.user)
+    except:
+      check = 1
+    if check == 0 :
+      customer = Customer.objects.get(user = request.user)
+      cart = Cart.objects.filter(cid = customer)
+      num = 0
+      for c in cart:
+        num += c.unit
+      context['numofproduct'] = num
     context['provinces'] = province
     user = request.user
     customer = Customer.objects.get(user=user)
@@ -497,6 +523,18 @@ def edit_address(request, address_id):
 @login_required
 def feedback(request):
     context = {}
+    check = 0
+    try:
+      customer = Customer.objects.get(user = request.user)
+    except:
+      check = 1
+    if check == 0 :
+      customer = Customer.objects.get(user = request.user)
+      cart = Cart.objects.filter(cid = customer)
+      num = 0
+      for c in cart:
+        num += c.unit
+      context['numofproduct'] = num
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
         feedback = Feedback.objects.create(
@@ -511,6 +549,18 @@ def feedback(request):
 
 def viewAllItem(request, type_id):
     context = {}
+    check = 0
+    try:
+      customer = Customer.objects.get(user = request.user)
+    except:
+      check = 1
+    if check == 0 :
+      customer = Customer.objects.get(user = request.user)
+      cart = Cart.objects.filter(cid = customer)
+      num = 0
+      for c in cart:
+        num += c.unit
+      context['numofproduct'] = num
     types = ProductType.objects.all()
     if type_id != 0:
         gettype = ProductType.objects.get(ptype_id=type_id)
@@ -552,6 +602,18 @@ def addToCart(request, product_id):
 
 def editCart(request):
     context = {}
+    check = 0
+    try:
+      customer = Customer.objects.get(user = request.user)
+    except:
+      check = 1
+    if check == 0 :
+      customer = Customer.objects.get(user = request.user)
+      cart = Cart.objects.filter(cid = customer)
+      num = 0
+      for c in cart:
+        num += c.unit
+      context['numofproduct'] = num
     customer = Customer.objects.get(user=request.user)
     cart = Cart.objects.filter(cid=customer)
     try:
@@ -574,7 +636,10 @@ def editCart(request):
     context['address'] = address
     context['totalprice'] = totalprice
     context['totalunit'] = totalunit
-    context['pricewithdeli'] = totalprice + 250
+    if len(cart) <= 0:
+      context['pricewithdeli'] = totalprice
+    else:
+      context['pricewithdeli'] = totalprice + 250
     context['form'] = form
     return render(request, template_name='shop/edit_cart.html', context=context)
 
@@ -613,6 +678,8 @@ def makeOrder(request):
     if request.method == 'POST':
         form = MakeOrderForm(request.POST)
         if form.is_valid():
+            if len(cart) <= 0:
+              return redirect('editcart')
             payment = request.POST.get('payment')
             date = request.POST.get('date')
             status = request.POST.get('status')
@@ -661,6 +728,18 @@ def makeOrder(request):
 @login_required
 def checkOrder(request):
     context = {}
+    check = 0
+    try:
+      customer = Customer.objects.get(user = request.user)
+    except:
+      check = 1
+    if check == 0 :
+      customer = Customer.objects.get(user = request.user)
+      cart = Cart.objects.filter(cid = customer)
+      num = 0
+      for c in cart:
+        num += c.unit
+      context['numofproduct'] = num
     customer = Customer.objects.get(user = request.user)
     order = Order.objects.filter(customer = customer)
     context['order'] = order
@@ -678,6 +757,18 @@ def orderDetails(request, order_id):
 @login_required
 def myProfile(request):
     context = {}
+    check = 0
+    try:
+      customer = Customer.objects.get(user = request.user)
+    except:
+      check = 1
+    if check == 0 :
+      customer = Customer.objects.get(user = request.user)
+      cart = Cart.objects.filter(cid = customer)
+      num = 0
+      for c in cart:
+        num += c.unit
+      context['numofproduct'] = num
     customer = Customer.objects.get(user=request.user)
     if request.method == 'POST':
         customer.first_name = request.POST.get('first_name')

@@ -29,6 +29,9 @@
                         </div> 
                         <p>- OR -</p>
                         <br>
+                        {% if error %}
+                          <span style="color: red;">{{ error }}</span>
+                        {% endif %}
                         <form method="POST" action="{% url 'login' %}">
                             {% csrf_token %}
                             <div class="form-group">
