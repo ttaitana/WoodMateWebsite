@@ -155,7 +155,7 @@
                                 </div>
                                 <div class="col pd-detail">
                                     <p class="pd-title">
-                                        <b style="float:left">{{ i.product_name }}</b>
+                                        <b style="float:left" id="pn_{{ i.product_id }}">{{ i.product_name }}</b>
                                     </p>
                                     <br>
                                     <p class="pd-desc">
@@ -171,7 +171,7 @@
                                             <label for="amount" class="col-3 col-form-label">จำนวน</label>
                                             <input type="number" min="0" max="{{ i.stock }}" value="0"
                                                    class="form-control" style="width: 5em;" name="number"
-                                                   id="pd_{{i.product_id}}}">
+                                                   id="pd_{{i.product_id}}">
                                         </div>
                                         <br>
                                         {% if user.is_authenticated %}
@@ -196,11 +196,11 @@
         </div>
     </div>
     <script>
-        function alertfunction(ss) {
-            // console.log(ss)
-            let tg =  document.querySelector('#pd_' + ss).value
-            if (tg > 0) {
-                alert('เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว' + ss);
+        function alertfunction(s) {
+            let oo = document.querySelector('#pd_' + s).value
+            let ooo = document.querySelector('#pn_' + s).innerText
+            if (oo > 0) {
+                alert('เพิ่ม '+ ooo + ' ลงตะกร้าเรียบร้อยแล้ว' );
             }
         }
     </script>
