@@ -96,6 +96,12 @@ class MakeOrderForm(forms.Form):
     status = forms.CharField(max_length=30, widget=forms.HiddenInput)
     date = forms.DateField(widget=forms.HiddenInput)
 
+    payment.widget.attrs.update(
+        {
+            
+        }
+    )
+
     def clean(self):
         cleaned_data = super().clean()
         payment = cleaned_data.get('payment')

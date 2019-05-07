@@ -149,7 +149,7 @@
             </form>
           </div>
           <br>
-          <a href="{% url 'index' %}" id="goback"><i class="fas fa-arrow-left"></i> &ensp; Go shopping</a>
+          <a href="{% url 'viewitems' type_id=0 %}" id="goback"><i class="fas fa-arrow-left"></i> &ensp; Go shopping</a>
         </div>
       </div>
 
@@ -267,6 +267,9 @@
 
       #goback:hover {
         color: #f18f01;
+      }
+      #id_payment > li{
+        list-style-type: none;
       }
     </style>
 </body>

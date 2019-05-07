@@ -123,26 +123,9 @@
             <div class="row">
 
               <div class="col">
-
                 <div class="form-group">
-                  <label id="{{form.district.id_for_label}}"> {{form.district.label}} </label>
-                  {{ form.district.errors }} {{ form.district }}
-                </div>
-              </div>
-
-              <div class="col">
-                <div class="form-group">
-                  <label id="{{form.area.id_for_label}}"> {{form.area.label}} </label>
-                  {{ form.area.errors }} {{ form.area }}
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label id="{{form.province.id_for_label}}"> {{form.province.label}}  </label>
-                  <select name="province">
+                  <label id="{{form.province.id_for_label}}"> {{form.province.label}} </label>
+                  <select name="province" class="form-control">
                     <option value="none">----------------------</option>
                     {% for p in provinces %}
                     {% if address.province == p.name %}
@@ -151,7 +134,25 @@
                     <option value="{{ p.name }}">{{ p.name }}</option>
                     {% endif %}
                     {% endfor %}
-                  </select> 
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+
+                <div class="form-group">
+                  <label id="{{form.district.id_for_label}}"> {{form.district.label}} </label>
+                  {{ form.district.errors }} {{ form.district }}
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label id="{{form.area.id_for_label}}"> {{form.area.label}} </label>
+                  {{ form.area.errors }} {{ form.area }}
                 </div>
               </div>
               <div class="col">
@@ -170,99 +171,88 @@
 
 
     <!-- -------------------------------------------------------------------------------------------------- -->
-    <script>
-      export default {
-        name: 'App',
-        components: {},
-        data() {
-          return {
-            som: 'Hello'
-          }
-        },
-        mounted() {
-
-        }
-      }
-    </script>
 
     <style>
       /* nabvar */
-    #logo {
-      text-decoration: none;
-      color: #2f2d2e;
-    }
+      #logo {
+        text-decoration: none;
+        color: #2f2d2e;
+      }
 
-    #inform {
-      color: rgb(156, 156, 156);
-    }
+      #inform {
+        color: rgb(156, 156, 156);
+      }
 
-    .icon {
-      color: #2f2d2e;
-      transition: 0.1s;
-    }
+      .icon {
+        color: #2f2d2e;
+        transition: 0.1s;
+      }
 
-    .icon:hover {
-      color: #f18f01;
-    }
+      .icon:hover {
+        color: #f18f01;
+      }
 
-    #top-nav>.row {
-      width: 100%;
-    }
+      #top-nav>.row {
+        width: 100%;
+      }
 
-    #top-nav {
-      display: flex;
-    }
+      #top-nav {
+        display: flex;
+      }
 
-    .navbar {
-      padding-top: 1em;
-      margin: 2em auto;
-      display: block;
-    }
+      .navbar {
+        padding-top: 1em;
+        margin: 2em auto;
+        display: block;
+      }
 
-    .nav-option {
-      float: left;
-    }
+      .nav-option {
+        float: left;
+      }
 
-    .nav-option>li {
-      list-style-type: none;
-      display: inline-block;
-      float: none;
-      padding: 0 1em;
-    }
+      .nav-option>li {
+        list-style-type: none;
+        display: inline-block;
+        float: none;
+        padding: 0 1em;
+      }
 
-    .nav-option>li>a {
-      color: #2f2d2e;
-      text-decoration: none;
-      font-size: 1.1em;
-      transition: 0.2s;
-    }
+      .nav-option>li>a {
+        color: #2f2d2e;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: 0.2s;
+      }
 
-    .nav-option>li>a:hover {
-      color: #f18f01;
-      text-decoration: none;
-    }
+      .nav-option>li>a:hover {
+        color: #f18f01;
+        text-decoration: none;
+      }
 
-    .inputText {
-      border: none;
-      border-bottom: 1px solid #2f2d2e;
-      transition: 0.4s;
-      margin: 0.5em;
-      padding: 0.3em 1em;
-    }
+      .inputText {
+        border: none;
+        border-bottom: 1px solid #2f2d2e;
+        transition: 0.4s;
+        margin: 0.5em;
+        padding: 0.3em 1em;
+      }
 
-    #userid {
-      text-decoration: none;
+      #userid {
+        text-decoration: none;
 
-    }
-    #top-nav>.row>.col-sm{
-      text-align: center;
-    }
-    #itemnav > a{
-      padding: 0 .5em;
-    }
-    /* end nabvar */
+      }
 
-    #frame {
+      #top-nav>.row>.col-sm {
+        text-align: center;
+      }
+
+      #itemnav>a {
+        padding: 0 .5em;
+      }
+
+      /* end nabvar */
+
+      #frame {
         padding: 0 3em;
         width: 90vw;
       }
@@ -277,6 +267,7 @@
       }
 
       .active::after {}
+
       .subtitle {
         color: #7C8292;
       }
