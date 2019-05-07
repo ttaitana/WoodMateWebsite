@@ -124,9 +124,9 @@
                         </a>
                         {% endif %}
                         <!--</li>-->
-                    <!--</ul>-->
-                    {% for t in types %}
-                    <!--<ul class="filter-list list-group">-->
+                        <!--</ul>-->
+                        {% for t in types %}
+                        <!--<ul class="filter-list list-group">-->
                         <!--<li class="filter-items list-group-item list-group-item-action">-->
                         {% if typed == t.ptype_id %}
                         <a href="{% url 'viewitems' type_id=t.ptype_id %}"
@@ -170,11 +170,12 @@
                                         <div class="form-group row">
                                             <label for="amount" class="col-3 col-form-label">จำนวน</label>
                                             <input type="number" min="0" max="{{ i.stock }}" value="0"
-                                                   class="form-control" style="width: 5em;" name="number">
+                                                   class="form-control" style="width: 5em;" name="number"
+                                                   id="pd_{{i.product_id}}}">
                                         </div>
                                         <br>
                                         {% if user.is_authenticated %}
-                                        <button type="submit" class="button" onclick="alertfunction()">
+                                        <button type="submit" class="button" onclick="alertfunction({{i.product_id}})">
                                             เพิ่มสินค้าลงตะกร้า
                                             &ensp;
                                             <i class="fas fa-arrow-right"></i></button>
@@ -195,8 +196,12 @@
         </div>
     </div>
     <script>
-        function alertfunction() {
-            alert('เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว');
+        function alertfunction(ss) {
+            // console.log(ss)
+            let tg =  document.querySelector('#pd_' + ss).value
+            if (tg > 0) {
+                alert('เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว' + ss);
+            }
         }
     </script>
 </body>
