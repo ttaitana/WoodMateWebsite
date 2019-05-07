@@ -631,6 +631,90 @@ def editCart(request):
         address = Address.objects.get(cid=customer)
     except:
         return redirect('add_address')
+    if request.method == 'POST':
+        form = MakeOrderForm(request.POST)
+        if form.is_valid():
+            if len(cart) <= 0:
+                totalprice = 0
+                totalunit = 0
+                for c in cart:
+                    product = c.pid
+                    price = product.price * c.unit
+                    totalprice += price
+                    c.price = product.price
+                    c.image = product.product_pic
+                    totalunit += c.unit
+                today = datetime.datetime.now().date()
+                form = MakeOrderForm(initial={'date': today, 'status': 'Waiting'})
+                context['cart'] = cart
+                context['address'] = address
+                context['totalprice'] = totalprice
+                context['totalunit'] = totalunit
+                context['error'] = 'คุณไม่มีสินค้าในตะกร้า'
+
+                if len(cart) > 0:
+                    context['pricewithdeli'] = totalprice + 250
+                else:
+                    context['pricewithdeli'] = totalprice
+                context['form'] = form
+                return render(request, template_name='shop/edit_cart.html', context=context)
+            payment = request.POST.get('payment')
+            date = request.POST.get('date')
+            status = request.POST.get('status')
+            for c in cart:
+                product = c.pid
+                checkunit = product.stock - c.unit
+                if checkunit < 0:
+                    context['error'] = product.product_name + 'ในstockมีไม่ถึงจำนวนที่ท่านต้องการ'
+                    address = Address.objects.get(cid=customer)
+                    totalprice = 0
+                    totalunit = 0
+                    for c in cart:
+                        product = c.pid
+                        price = product.price * c.unit
+                        totalprice += price
+                        c.price = price
+                        c.image = product.product_pic
+                        totalunit += c.unit
+                    today = datetime.datetime.now().date()
+                    form = MakeOrderForm(initial={'date': today, 'status': 'Waiting'})
+                    context['cart'] = cart
+                    context['address'] = address
+                    context['totalprice'] = totalprice
+                    context['totalunit'] = totalunit
+
+                    if len(cart) > 0:
+                        context['pricewithdeli'] = totalprice + 250
+                    else:
+                        context['pricewithdeli'] = totalprice
+                    context['form'] = form
+                    return render(request, template_name='shop/edit_cart.html', context=context)
+            order = Order.objects.create(
+                payment=payment,
+                status=status,
+                date=date,
+                customer=customer
+            )
+            totalprice = 0
+            for c in cart:
+                product = c.pid
+                product.stock = checkunit
+                price = product.price
+                totalprice += price
+                orderlist = OrderList.objects.create(
+                    product=product,
+                    unit=c.unit,
+                    price=product.price,
+                    total_price=price,
+                    order=order
+                )
+                product.save()
+                c.delete()
+            totalprice += 250
+            order.total_price = totalprice
+            order.save()
+
+            return redirect('checkorder')
     address = Address.objects.get(cid=customer)
     totalprice = 0
     totalunit = 0
@@ -638,7 +722,7 @@ def editCart(request):
         product = c.pid
         price = product.price * c.unit
         totalprice += price
-        c.price = price
+        c.price = product.price
         c.image = product.product_pic
         totalunit += c.unit
     today = datetime.datetime.now().date()
@@ -745,6 +829,18 @@ def makeOrder(request):
 @login_required
 def checkOrder(request):
     context = {}
+    check = 0
+    try:
+      customer = Customer.objects.get(user = request.user)
+    except:
+      check = 1
+    if check == 0 :
+      customer = Customer.objects.get(user = request.user)
+      cart = Cart.objects.filter(cid = customer)
+      num = 0
+      for c in cart:
+        num += c.unit
+      context['numofproduct'] = num
     customer = Customer.objects.get(user=request.user)
     order = Order.objects.filter(customer=customer)
     context['order'] = order
