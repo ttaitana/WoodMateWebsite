@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6cb3649a-4729-419e-9232-01a50ba184c1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/59662649_2037406183221463_4110076650488594432_n.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/woodmate/shop/templates/shop/view_items.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/woodmate/shop/templates/shop/view_items.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,7 +50,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/woodmate/shop/templates/shop/view_items.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
+            <state relative-caret-position="5050">
               <caret line="202" column="65" lean-forward="true" selection-start-line="202" selection-start-column="65" selection-end-line="202" selection-end-column="65" />
               <folding>
                 <element signature="n#style#0;n#b#0;n#p#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -178,16 +178,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557240517228</updated>
-      <workItem from="1557240519917" duration="7023000" />
+      <workItem from="1557240519917" duration="7135000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7023000" />
+    <option name="totallyTimeSpent" value="7135000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18923241" />
@@ -246,7 +245,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/woodmate/shop/templates/shop/view_items.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
+        <state relative-caret-position="5050">
           <caret line="202" column="65" lean-forward="true" selection-start-line="202" selection-start-column="65" selection-end-line="202" selection-end-column="65" />
           <folding>
             <element signature="n#style#0;n#b#0;n#p#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
