@@ -52,6 +52,9 @@
                 <div class="form-group">
                     <label for="username"><b> Username </b></label>
                       {{ user.username }}
+                      {% if error %}
+                      <span style="color: red;">{{ error }}</span>
+                      {% endif %}
                 </div>
                 <label for="password"><b> Password </b></label>
                 <div class="form-group">

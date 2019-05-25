@@ -345,17 +345,20 @@ def register(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
             email = request.POST.get('email')
-            new_user = User.objects.create_user(username, email, password)
-            customer = Customer.objects.create(
-                first_name=request.POST.get('first_name'),
-                last_name=request.POST.get('last_name'),
-                email=request.POST.get('email'),
-                phone_number=request.POST.get('phone_number'),
-                user=new_user
-            )
-            my_group = Group.objects.get(name='Customer')
-            my_group.user_set.add(new_user)
-            return redirect('index')
+            try:
+                new_user = User.objects.create_user(username, email, password)
+                customer = Customer.objects.create(
+                    first_name=request.POST.get('first_name'),
+                    last_name=request.POST.get('last_name'),
+                    email=request.POST.get('email'),
+                    phone_number=request.POST.get('phone_number'),
+                    user=new_user
+                )
+                my_group = Group.objects.get(name='Customer')
+                my_group.user_set.add(new_user)
+                return redirect('index')
+            except:
+                context['error'] = 'The username has already been used'
         else:
             print('no')
     else:
@@ -674,7 +677,7 @@ def editCart(request):
                         product = c.pid
                         price = product.price * c.unit
                         totalprice += price
-                        c.price = price
+                        c.price = product.price
                         c.image = product.product_pic
                         totalunit += c.unit
                     today = datetime.datetime.now().date()

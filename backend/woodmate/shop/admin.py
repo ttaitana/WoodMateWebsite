@@ -56,7 +56,8 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 
 class OrderListAdmin(admin.ModelAdmin):
-    list_display = ['line_id', 'order']
+    list_display = ['line_id', 'order', 'product', 'unit']
+    list_filter = ['order']
     list_per_page = 10
 
 admin.site.register(OrderList, OrderListAdmin)
